@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getAllRecipes, getRecipe } from '../controllers/MenuController';
-import { getPlans, getPlanMenu, storeMenu } from '../controllers/PricingController';
+import { postRecipe, getAllRecipes, getRecipe, putRecipe } from '../controllers/MenuController';
+import { postPlan, getPlans, getPlanMenu, storeMenu } from '../controllers/PricingController';
 import {
   registerUser, login,
   logout, verifyToken,
@@ -22,10 +22,13 @@ router.post('/api/auth/login', login);
 router.get('/api/auth/logout', logout);
 
 // menu routes
+router.post('/api/menu', postRecipe);
+router.put('/api/menu/:id', putRecipe);
 router.get('/api/menu', getAllRecipes);
 router.get('/api/menu/:id', getRecipe);
 
 // plans route
+router.post('/api/plans', postPlan);
 router.get('/api/plans', getPlans);
 router.get('/api/plan/menu/:planId', getPlanMenu);
 router.put('/api/plan/menu', storeMenu);

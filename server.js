@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
 import Stripe from 'stripe';
-import router from './routes/index';
+import router from './routes';
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ mongoose.connect(database,
     useFindAndModify: false,
   })
   .then(() => console.log('MongoDB is connected'))
-  .catch((err) => console.log('MongoDB connection error'));
+  .catch((err) => console.log('MongoDB connection error', err));
 
 const app = express();
 

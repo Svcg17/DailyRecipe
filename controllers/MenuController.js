@@ -1,6 +1,33 @@
 import Recipe from '../models/recipe';
 
 /**
+ * Middleware function for POST /api/menu
+ * Adds new recipe
+ */
+export async function postRecipe(req, res) {
+  const newRecipe = new Recipe({ title: req.body.title, ingredients: req.body.ingredients, instructions: req.body.instructions, duration: req.body.duration, diet: req.body.diet, servings: req.body.servings });
+  await newRecipe.save(err => {
+    if(err) return res.status(400).json({ error: err.message });
+    return res.status(200).json({ message: 'success' });
+  });
+}
+
+/**
+ * Middleware function for PUT /api/menu/:id
+ * Edits specified recipe
+ */
+export async function putRecipe(req, res) {
+  try {
+    const updateRecipe = await Recipe.findOneAndUpdate(req.params.id, req.body, { new: true });
+    await updateRecipe.save();
+    res.status(200).send({ updatedRecipe: updateRecipe });
+  } catch (err) {
+    res.status(400).send({ error: err.message });
+  }
+  
+}
+
+/**
  * Middleware function for GET /api/menu
  * Retrieves all recipes in database
  */

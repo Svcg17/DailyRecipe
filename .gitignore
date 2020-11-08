@@ -1,5 +1,4 @@
 /node_modules
 .DS_Store
-.env
 README.md
 npm-debug.log*

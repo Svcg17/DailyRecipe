@@ -2,6 +2,18 @@ import Plan from '../models/plan';
 import Recipes from '../models/recipe';
 
 /**
+ * Middleware function for POST /api/plans
+ * Posts plan
+ */
+export async function postPlan(req, res) {
+  const newPlan = new Plan({ name: req.body.name, diet: req.body.diet, recipesPerWeek: req.body.recipesPerWeek, servings: req.body.servings, pricePerServing: req.body.pricePerServing, description: req.body.description, menu: req.body.menu })
+  newPlan.save(err => {
+    if (err) return res.status(400).json({ error: err.message });
+    return res.status(200).json({ message: 'successfully added plan' });
+  });
+};
+
+/**
  * Middleware function for GET /api/plans
  * Retrieves all available pricing plans
  */
