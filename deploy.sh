@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /var/www/html
 git pull
 sudo npm install
 cd client
