@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import UserContext from '../../../context/UserContext';
 import './public.css';
-import Logo from '../../../assets/Logo.png';
+import Logo from '../../../assets/Logoheader.png';
 
 /** Public layout's header */
 const Header = () => {
@@ -33,7 +33,7 @@ const Header = () => {
           ) : (
             <div className='d-md-flex ml-md-auto'>
               <Nav.Link as={Link} eventKey='7' to='/signin' className={isActive('/signin')}>Sign Up</Nav.Link>
-              <Nav.Link as={Link} eventKey='8' to='/login' className={isActive('/login')}>Log In</Nav.Link>
+              <Nav.Link as={Link} eventKey='8' to='/login' className={isActive('/login')}>Choose Your Meal Kit</Nav.Link>
             </div>
           )}
           </Nav>

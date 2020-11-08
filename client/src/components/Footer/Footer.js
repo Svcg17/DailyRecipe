@@ -24,9 +24,21 @@ const Footer = ({ history }) => (
           <Nav.Link as={Link} to='/pricing'>Pricing</Nav.Link>
           <Nav.Link as={Link} to='/signin'>Sign Up</Nav.Link>
         </Nav>
+        <Nav>
+          <Nav.Link as={Link} to='/'>Community</Nav.Link>
+          <Nav.Link as={Link} to='/menu'>Articles</Nav.Link>
+          <Nav.Link as={Link} to='/pricing'>Tips</Nav.Link>
+          <Nav.Link as={Link} to='/signin'>Cookbook</Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link as={Link} to='/'>Suppliers</Nav.Link>
+          <Nav.Link as={Link} to='/menu'>Supply Chain Act</Nav.Link>
+          <Nav.Link as={Link} to='/pricing'>Press</Nav.Link>
+          <Nav.Link as={Link} to='/signin'>Donations</Nav.Link>
+        </Nav>
       </Col>
       <Col xs={6} md={3} lg={4} className='socialIcons'>
-        <div>About Me</div>
+        <div>About Us</div>
         <div>
           <span className='socialIcon'>
             <a href='https://twitter.com/eliteschef'>
