@@ -1,10 +1,10 @@
 #!/bin/sh
 cd /var/www/html
 git pull
-sudo npm install
+sudo yarn install
 cd client
-npm install
-sudo npm run build
+yarn install
+sudo yarn run build
 cd ..
 sudo systemctl restart nginx
 sudo pm2 restart all
