@@ -72,7 +72,7 @@ const Steps = ({ images, history, user }) => (
 /** Why us container */
 const WhyUs = ({ images, history, user }) => (
   <Container className='whyUs my-5'>
-    <h2 className='text-center my-5'>Why Daily Recipe</h2>
+    <h2 className='text-center my-5'>Why Elites Chef</h2>
     <Row>
       <Col className='whyUsItem' xs={12} md ={6} lg={3}>
         <Image src={images('./Product.svg')} width='60' height='60' />
@@ -105,7 +105,7 @@ const WhyUs = ({ images, history, user }) => (
 const Box = ({ images, history }) => (
   <Container fluid className='boxContainer'>
     <Container fluid className='innerBox'>
-      <h2 className='m-5'>What is inside a Daily Recipe box</h2>
+      <h2 className='m-5'>What is inside a Elites Chef box</h2>
       <Row>
         <Col className='boxItem' xs={12} md={6}>
           <Image src={images('./Bulb.svg')} width='60' height='60' />
@@ -149,7 +149,7 @@ const Home = ({ history }) => {
   return (
     <div className='home'>
       <Container fluid className='homeHeader'>
-        <h1>Welcome to Daily Recipe, where we deliver meals and you cook them</h1>
+        <h1>Welcome to Elites Chef, where we deliver meals and you cook them</h1>
         {user
           ? <Button variant='secondary'
               size='lg'

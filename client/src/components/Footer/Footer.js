@@ -14,8 +14,8 @@ const Footer = ({ history }) => (
     <Row className='footerInfo'>
       <Col xs={12} md={6} lg={4} className='description'>
         <Image src={Logo} width='200' />
-        <small>An ingredient and recipe delivery service website</small>
-        <small>Made with ♥ in San Fransisco, CA</small>
+        <small>An ingredient and recipe delivery service</small>
+        <small>Made with ♥ in Lagos, Nigeria</small>
       </Col>
       <Col xs={6} md={3} lg={4} className='footerLinks'>
         <Nav>
@@ -24,23 +24,35 @@ const Footer = ({ history }) => (
           <Nav.Link as={Link} to='/pricing'>Pricing</Nav.Link>
           <Nav.Link as={Link} to='/signin'>Sign Up</Nav.Link>
         </Nav>
+        <Nav>
+          <Nav.Link as={Link} to='/'>Community</Nav.Link>
+          <Nav.Link as={Link} to='/menu'>Articles</Nav.Link>
+          <Nav.Link as={Link} to='/pricing'>Tips</Nav.Link>
+          <Nav.Link as={Link} to='/signin'>Cookbook</Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link as={Link} to='/'>Suppliers</Nav.Link>
+          <Nav.Link as={Link} to='/menu'>Supply Chain Act</Nav.Link>
+          <Nav.Link as={Link} to='/pricing'>Press</Nav.Link>
+          <Nav.Link as={Link} to='/signin'>Donations</Nav.Link>
+        </Nav>
       </Col>
       <Col xs={6} md={3} lg={4} className='socialIcons'>
-        <div>About Me</div>
+        <div>About Us</div>
         <div>
           <span className='socialIcon'>
-            <a href='https://twitter.com/sofivism'>
+            <a href='https://twitter.com/eliteschef'>
               <i className='fa fa-twitter'></i>
             </a>
           </span>
           <span className='socialIcon'>
-            <a href='https://github.com/Svcg17'>
-              <i className='fa fa-github'></i>
+            <a href='https://github.com/eliteschef'>
+              <i className='fa fa-instagram'></i>
             </a>
           </span>
           <span className='socialIcon'>
-            <a href='https://www.linkedin.com/in/sofiacheung/'>
-              <i className='fa fa-linkedin'></i>
+            <a href='https://www.facebook.com/eliteschef/'>
+              <i className='fa fa-facebook'></i>
             </a>
           </span>
         </div>
@@ -48,7 +60,7 @@ const Footer = ({ history }) => (
     </Row>
     <Row>
       <Col xs={12} className='license mx-auto'>
-        <small>© By Sofia Cheung 2020</small>
+        <small>© By The Modes Empire 2020</small>
       </Col>
     </Row>
   </Container>

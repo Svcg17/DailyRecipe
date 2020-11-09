@@ -45,7 +45,7 @@ const Recipe = ({ id, match, history }) => {
         </Col>
         <Col xs={12} lg={6} className='recipeDetails my-4 my-lg-0 p-lg-5'>
           <h1>{recipe.title}</h1>
-          <h4>At Daily Recipe</h4>
+          <h4>At Elites Chef</h4>
           <p>This recipe is a combination of simple and flavory, the fresh and high quality ingredients we provide along with this recipe make up for an unforgettable meal. In no time you will have cooked a complete meal that is both simple and tasy. Follow these simple instructions step by step to have the best results.</p>
           <div>
             <div>
@@ -70,6 +70,23 @@ const Recipe = ({ id, match, history }) => {
             </div>
             {match && !user && <Button onClick={() => history.push('/signin')}>Get Started</Button>}
           </div>
+        </Col>
+      </Row>
+      <Row className='introduction py-4'>
+        <Col xs={12}>
+            <h2>Introduction</h2>
+        </Col>
+        <Col xs={12}>
+            <ul>
+              {recipe.introduction && recipe.introduction.map((step) => (
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" width='25' height='25' fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                   {step}
+                </li>
+              ))}
+            </ul>
         </Col>
       </Row>
       <Row className='ingredients py-4'>
