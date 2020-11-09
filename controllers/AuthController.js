@@ -57,7 +57,7 @@ export async function registerUser(req, res) {
         newUser.password = hash;
         newUser.save((err) => {
           if (err) return res.status(400).json({ error: err.message });
-          generateToken({ id: newUser._id }, res);
+          generateToken({ id: newUser.id }, res);
         });
       });
     });
@@ -80,7 +80,7 @@ export async function login(req, res) {
     if (user) {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err || !result) return res.status(400).json({ error: 'Wrong password' });
-        generateToken({ id: user._id }, res);
+        generateToken({ id: user.id }, res);
       });
     } else return res.status(400).json({ error: 'Email not found' });
   });

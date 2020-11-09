@@ -34,13 +34,13 @@ router.get('/api/plan/menu/:planId', getPlanMenu);
 router.put('/api/plan/menu', storeMenu);
 
 // user routes
-router.use('/api/users', verifyToken);
-router.get('/api/users/profile', getProfile);
-router.get('/api/users/plan', getUserPlan);
-router.get('/api/users/planInstance', getPlanInstance);
-router.get('/api/users/recipes', getSelectedRecipes);
-router.put('/api/users/recipes', selectRecipe);
-router.post('/api/users/delivery', setDeliveryInfo);
-router.post('/api/users/plan', choosePlan);
+router.use('/users', verifyToken);
+router.get('/users/profile', getProfile);
+router.get('/users/plan', getUserPlan);
+router.get('/users/planInstance', getPlanInstance);
+router.get('/users/recipes', getSelectedRecipes);
+router.put('/users/recipes', selectRecipe);
+router.post('/users/delivery', setDeliveryInfo);
+router.post('/users/plan', choosePlan);
 
 export default router;
