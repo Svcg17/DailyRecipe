@@ -19,5 +19,5 @@ jobs:
                   aws-region: us-east-2
                   instance-ids: ${{ secrets.INSTANCE_ID  }}
                   comment: Deploy the master branch 
-                  working-directory: /home/ubuntu/DailyRecipe
+                  working-directory: /var/www/html
                   command: /bin/sh ./deploy.sh
