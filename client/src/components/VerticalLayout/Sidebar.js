@@ -49,11 +49,11 @@ const SidebarContent = props => {
         <li>
           <Link to="/admin/#" className="has-arrow waves-effect">
             <i className="ti-package"></i>
-            <span>UI Elements</span>
+            <span>Meals</span>
           </Link>
           <ul className="sub-menu" aria-expanded="false">
             <li>
-              <Link to="ui-alerts">Alerts</Link>
+              <Link to="meals">View Meals</Link>
             </li>
             <li>
               <Link to="ui-buttons">Buttons</Link>

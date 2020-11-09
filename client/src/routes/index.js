@@ -4,98 +4,100 @@ import { Redirect } from "react-router-dom";
 // Pages Component
 
 // Authentication related pages
-import Login from "../pages/Authentication/Login";
-import Logout from "../pages/Authentication/Logout";
-import Register from "../pages/Authentication/Register";
-import ForgetPwd from "../pages/Authentication/FogetPassword";
+import Login from "../components/Admin/Authentication/Login";
+import Logout from "../components/Admin/Authentication/Logout";
+import Register from "../components/Admin/Authentication/Register";
+import ForgetPwd from "../components/Admin/Authentication/FogetPassword";
 
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../components/Admin/Dashboard";
 
-import Calendar from "../pages/Apps/Calendar/index";
+import Calendar from "../components/Admin/Apps/Calendar/index";
 
-import EmailInbox from "../pages/Apps/Email/inbox";
-import EmailRead from "../pages/Apps/Email/read";
-import EmailCompose from "../pages/Apps/Email/compose";
+import EmailInbox from "../components/Admin/Apps/Email/inbox";
+import EmailRead from "../components/Admin/Apps/Email/read";
+import EmailCompose from "../components/Admin/Apps/Email/compose";
 
-import Emailtemplatealert from "../pages/Apps/EmailTemplate/email-template-alert";
-import Emailtemplatebasic from "../pages/Apps/EmailTemplate/email-template-basic";
-import Emailtemplatebilling from "../pages/Apps/EmailTemplate/email-template-billing";
+import Emailtemplatealert from "../components/Admin/Apps/EmailTemplate/email-template-alert";
+import Emailtemplatebasic from "../components/Admin/Apps/EmailTemplate/email-template-basic";
+import Emailtemplatebilling from "../components/Admin/Apps/EmailTemplate/email-template-billing";
 
-// UI Pages
-import UiSweetAlert from "../pages/UI/UiSweetAlert";
-import UiAlerts from "../pages/UI/Alerts";
-import UiButtons from "../pages/UI/Buttons";
-import UiCards from "../pages/UI/Cards";
-import UiCarousel from "../pages/UI/Carousel";
-import UiDropdown from "../pages/UI/Dropdown";
-import UiGrid from "../pages/UI/Grid";
-import UiImages from "../pages/UI/Images";
-import UiLightbox from "../pages/UI/Lightbox";
-import UiModals from "../pages/UI/Modals";
-import UiRangeSlider from "../pages/UI/RangeSlider";
-import UiSessionTimeout from "../pages/UI/SessionTimeout";
-import Progressbar from "../pages/UI/Progressbar";
-import TabsAccordion from "../pages/UI/TabsAccordion";
-import Typography from "../pages/UI/Typography";
-import Video from "../pages/UI/Video";
-import General from "../pages/UI/General";
-import Colors from "../pages/UI/Colors";
-import Rating from "../pages/UI/Rating";
+// Customers
+import ViewMeals from '../components/Admin/Meals/ViewMeals';
+
+import UiSweetAlert from "../components/Admin/UI/UiSweetAlert";
+import UiAlerts from "../components/Admin/UI/Alerts";
+import UiButtons from "../components/Admin/UI/Buttons";
+import UiCards from "../components/Admin/UI/Cards";
+import UiCarousel from "../components/Admin/UI/Carousel";
+import UiDropdown from "../components/Admin/UI/Dropdown";
+import UiGrid from "../components/Admin/UI/Grid";
+import UiImages from "../components/Admin/UI/Images";
+import UiLightbox from "../components/Admin/UI/Lightbox";
+import UiModals from "../components/Admin/UI/Modals";
+import UiRangeSlider from "../components/Admin/UI/RangeSlider";
+import UiSessionTimeout from "../components/Admin/UI/SessionTimeout";
+import Progressbar from "../components/Admin/UI/Progressbar";
+import TabsAccordion from "../components/Admin/UI/TabsAccordion";
+import Typography from "../components/Admin/UI/Typography";
+import Video from "../components/Admin/UI/Video";
+import General from "../components/Admin/UI/General";
+import Colors from "../components/Admin/UI/Colors";
+import Rating from "../components/Admin/UI/Rating";
 
 // Form
-import FormElement from "../pages/Forms/FormElement";
-import FormValidation from "../pages/Forms/FormValidation";
-import FormAdvanced from "../pages/Forms/FormAdvanced";
-import FormMask from "../pages/Forms/FormMask";
-import FormRepeater from "../pages/Forms/FormRepeater";
-import FormUpload from "../pages/Forms/FormUpload";
-import FormXeditable from "../pages/Forms/FormXeditable";
-import FormWizard from "../pages/Forms/FormWizard";
-import FormEditor from "../pages/Forms/FormEditor";
+import FormElement from "../components/Admin/Forms/FormElement";
+import FormValidation from "../components/Admin/Forms/FormValidation";
+import FormAdvanced from "../components/Admin/Forms/FormAdvanced";
+import FormMask from "../components/Admin/Forms/FormMask";
+import FormRepeater from "../components/Admin/Forms/FormRepeater";
+import FormUpload from "../components/Admin/Forms/FormUpload";
+import FormXeditable from "../components/Admin/Forms/FormXeditable";
+import FormWizard from "../components/Admin/Forms/FormWizard";
+import FormEditor from "../components/Admin/Forms/FormEditor";
 
 // Charts
-import ChartistChart from "../pages/Charts/ChartistChart";
-import ChartjsChart from "../pages/Charts/ChartjsChart";
-import ApexChart from "../pages/Charts/ApexChart";
-import SarklineChart from "../pages/Charts/SarklineChart";
-import EchartChart from "../pages/Charts/EChart";
+import ChartistChart from "../components/Admin/Charts/ChartistChart";
+import ChartjsChart from "../components/Admin/Charts/ChartjsChart";
+import ApexChart from "../components/Admin/Charts/ApexChart";
+import SarklineChart from "../components/Admin/Charts/SarklineChart";
+import EchartChart from "../components/Admin/Charts/EChart";
 
 //Tables
-import TableBasic from "../pages/Tables/TableBasic";
-import TableDatatable from "../pages/Tables/TableDatatable";
-import TableResponsive from "../pages/Tables/TableResponsive";
-import TableEditable from "../pages/Tables/TableEditable";
+import TableBasic from "../components/Admin/Tables/TableBasic";
+import TableDatatable from "../components/Admin/Tables/TableDatatable";
+import TableResponsive from "../components/Admin/Tables/TableResponsive";
+import TableEditable from "../components/Admin/Tables/TableEditable";
 
 //Maps
-import IconDripicons from "../pages/Icons/IconDripicons";
-import IconFontAwesome from "../pages/Icons/IconFontAwesome";
-import IconIon from "../pages/Icons/IconIon";
-import IconMaterial from "../pages/Icons/IconMaterial";
-import IconThemify from "../pages/Icons/IconThemify";
-import IconTypicons from "../pages/Icons/IconTypicons";
+import IconDripicons from "../components/Admin/Icons/IconDripicons";
+import IconFontAwesome from "../components/Admin/Icons/IconFontAwesome";
+import IconIon from "../components/Admin/Icons/IconIon";
+import IconMaterial from "../components/Admin/Icons/IconMaterial";
+import IconThemify from "../components/Admin/Icons/IconThemify";
+import IconTypicons from "../components/Admin/Icons/IconTypicons";
 
 //Maps
-import MapsVector from "../pages/Maps/MapsVector";
-import MapsGoogle from "../pages/Maps/MapsGoogle";
+import MapsVector from "../components/Admin/Maps/MapsVector";
+import MapsGoogle from "../components/Admin/Maps/MapsGoogle";
 
 // Extra Pages
-import PagesLogin2 from "../pages/ExtraPages/PagesLogin2";
-import PagesRegister2 from "../pages/ExtraPages/PagesRegister2";
-import PagesRecoverpw2 from "../pages/ExtraPages/PagesRecoverpw2";
-import PagesLockScreen2 from "../pages/ExtraPages/PagesLockScreen2";
+import PagesLogin2 from "../components/Admin/ExtraPages/PagesLogin2";
+import PagesRegister2 from "../components/Admin/ExtraPages/PagesRegister2";
+import PagesRecoverpw2 from "../components/Admin/ExtraPages/PagesRecoverpw2";
+import PagesLockScreen2 from "../components/Admin/ExtraPages/PagesLockScreen2";
 
 // Extra Pages
-import PagesTimeline from "../pages/ExtraPages/PagesTimeline";
-import PagesInvoice from "../pages/ExtraPages/PagesInvoice";
-import PagesDirectory from "../pages/ExtraPages/PagesDirectory";
-import PagesBlank from "../pages/ExtraPages/PagesBlank";
-import PagesPricing from "../pages/ExtraPages/PagesPricing";
-import PagesGallery from "../pages/ExtraPages/PagesGallery";
-import PagesFaq from "../pages/ExtraPages/PagesFaq";
-import Pages404 from "../pages/ExtraPages/Pages404";
-import Pages500 from "../pages/ExtraPages/Pages500";
-import PagesMaintenance from "../pages/ExtraPages/PagesMaintenance";
-import PagesComingsoon from "../pages/ExtraPages/PagesComingsoon";
+import PagesTimeline from "../components/Admin/ExtraPages/PagesTimeline";
+import PagesInvoice from "../components/Admin/ExtraPages/PagesInvoice";
+import PagesDirectory from "../components/Admin/ExtraPages/PagesDirectory";
+import PagesBlank from "../components/Admin/ExtraPages/PagesBlank";
+import PagesPricing from "../components/Admin/ExtraPages/PagesPricing";
+import PagesGallery from "../components/Admin/ExtraPages/PagesGallery";
+import PagesFaq from "../components/Admin/ExtraPages/PagesFaq";
+import Pages404 from "../components/Admin/ExtraPages/Pages404";
+import Pages500 from "../components/Admin/ExtraPages/Pages500";
+import PagesMaintenance from "../components/Admin/ExtraPages/PagesMaintenance";
+import PagesComingsoon from "../components/Admin/ExtraPages/PagesComingsoon";
 
 const authProtectedRoutes = [
   // Calendar
@@ -113,7 +115,8 @@ const authProtectedRoutes = [
 
   // Ui Pages
   { path: "/admin/ui-sweet-alert", component: UiSweetAlert },
-  { path: "/admin/ui-alerts", component: UiAlerts },
+  // { path: "/admin/ui-alerts", component: UiAlerts },
+  { path: "/admin/meals", component: ViewMeals },
   { path: "/admin/ui-buttons", component: UiButtons },
   { path: "/admin/ui-cards", component: UiCards },
   { path: "/admin/ui-carousel", component: UiCarousel },

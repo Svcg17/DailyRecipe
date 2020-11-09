@@ -1,3 +1,7 @@
+# Question. Can a customer only order one plan per week or not? And is buying subscription based? Or just one delivery for one order? 
+
+
+
 # This is an appspec.yml template file for use with an EC2/On-Premises deployment in CodeDeploy.
 # The lines in this template starting with the hashtag symbol are 
 #   instructional comments and can be safely left in the file or 

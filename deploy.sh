@@ -2,7 +2,8 @@
 git checkout master
 git reset --hard origin/master
 nvm use node
-chown -R ubuntu:ubuntu /var/www/html/
+sudo chown ubuntu:ubuntu /home/ubuntu/.pm2/rpc.sock /home/ubuntu/.pm2/pub.sock
+sudo chown -R ubuntu:ubuntu /var/www/html/
 cd /var/www/html
 git pull origin master
 rm -rf node_modules/
