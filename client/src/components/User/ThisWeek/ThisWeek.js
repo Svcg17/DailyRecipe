@@ -75,7 +75,7 @@ const ThisWeek = ({ history }) => {
         />
         <Carousel.Caption>
           <h3>We love new ideas</h3>
-          <p>Got any recipe ideas you would love to share? At Daily Recipe, we always have to come up with new recipes so share them with us!</p>
+          <p>Got any recipe ideas you would love to share? At Elites Chef, we always have to come up with new recipes so share them with us!</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
