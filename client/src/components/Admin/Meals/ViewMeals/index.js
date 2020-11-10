@@ -14,9 +14,17 @@ const ViewCustomers = ({ history }) => {
 
     return (
         <div>
-            <Link to="/admin/meals/create" className="text-right">
-                <button className="btn btn-primary">Create new meal</button>
-            </Link>
+            <ol className="breadcrumb mb-0">
+                <li className="breadcrumb-item">
+                    <Link to="/admin/meals">View Meals</Link>
+                </li>
+                <li className="breadcrumb-item active"></li>
+            </ol>
+            <div className="text-right">
+                <Link to="/admin/meals/create">
+                    <button className="btn btn-primary">Create new meal</button>
+                </Link>
+            </div>
             <Row>
                 <Col>Meal Name</Col>
                 <Col>Diet</Col>

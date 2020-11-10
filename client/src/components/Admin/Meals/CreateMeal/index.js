@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
-
-import Loading from '../../Loading';
 
 const CreateMeal = ({ history }) => {
     let [meal, setMeal] = useState(null);
@@ -61,6 +59,12 @@ const CreateMeal = ({ history }) => {
                             <div className="container-fluid">
                                 <Row className="form-wizard">
                                     <Col sm="12">
+                                        <ol className="breadcrumb mb-0">
+                                            <li className="breadcrumb-item">
+                                                <Link to="/admin/meals">View Meals</Link>
+                                            </li>
+                                            <li className="breadcrumb-item active">Create a meal</li>
+                                        </ol>
                                         <Card>
                                             <CardBody>
                                                 <h4 className="mt-0 header-title">Create a meal</h4>
@@ -77,9 +81,9 @@ const CreateMeal = ({ history }) => {
                                                         </div>
                                                         <div className="col-md-6">
                                                             <div className="form-group row">
-                                                                <label htmlFor="duration" className="col-lg-3 col-form-label">Duration</label>
+                                                                <label htmlFor="meal.duration" className="col-lg-3 col-form-label">Duration</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} id="meal.duration" name="duration" type="text" className="form-control" />
+                                                                    <Field onChange={handleChange} id="meal.duration" name="meal.duration" type="text" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>

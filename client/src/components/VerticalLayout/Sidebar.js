@@ -48,7 +48,7 @@ const SidebarContent = props => {
         <li className="menu-title">Components</li>
         <li>
           <Link to="/admin/#" className="has-arrow waves-effect">
-            <i className="ti-package"></i>
+            <i className="mdi mdi-food-apple-outline"></i>
             <span>Meals</span>
           </Link>
           <ul className="sub-menu" aria-expanded="false">
@@ -56,9 +56,9 @@ const SidebarContent = props => {
               <Link to="/admin/meals">View Meals</Link>
             </li>
             <li>
-              <Link to="ui-buttons">Buttons</Link>
+              <Link to="/admin/meals/create">Create a New Meal</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="ui-cards">Cards</Link>
             </li>
             <li>
@@ -108,9 +108,46 @@ const SidebarContent = props => {
             </li>
             <li>
               <Link to="ui-rating">Rating</Link>
+            </li> */}
+          </ul>
+        </li>
+
+        <li>
+          <Link to="/admin/#" className="has-arrow waves-effect">
+            <i className="mdi mdi-book-open-page-variant"></i>
+            <span>Plans</span>
+          </Link>
+          <ul className="sub-menu" aria-expanded="false">
+            <li>
+              <Link to="form-elements">Form Elements</Link>
+            </li>
+            <li>
+              <Link to="form-validation">Form Validation</Link>
+            </li>
+            <li>
+              <Link to="form-advanced">Form Advanced</Link>
+            </li>
+            <li>
+              <Link to="form-editors">Form Editors</Link>
+            </li>
+            <li>
+              <Link to="form-uploads">Form File Upload</Link>
+            </li>
+            <li>
+              <Link to="form-xeditable">Form Xeditable</Link>
+            </li>
+            <li>
+              <Link to="form-repeater">Form Repeater</Link>
+            </li>
+            <li>
+              <Link to="form-wizard">Form Wizard</Link>
+            </li>
+            <li>
+              <Link to="form-mask">Form Mask</Link>
             </li>
           </ul>
         </li>
+
 
         <li>
           <Link to="/admin/#" className="waves-effect">

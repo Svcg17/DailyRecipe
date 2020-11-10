@@ -1,24 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
 
 import Loading from '../../Loading';
+import Ingredient from '../Ingredient';
 
 const EditMeal = ({ history }) => {
     let { id } = useParams();
-    let [meal, setMeal] = useState(null);
-    let [status, setStatus] = useState(null);
+    const [meal, setMeal] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [ingredientCount, setIngredientCount] = useState(0);
+
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => setMeal(res.data));
+        axios.get(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
+            setMeal(res.data);
+            setIngredientCount(res.data.ingredients.length);
+        });
     }, []);
+    const addIngredient = () => {
+        setIngredientCount(ingredientCount + 1);
+    };
     const handleDelete = () => {
         axios.delete(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
             history.push('/admin/meals');
         })
     };
+    let renderAddIngredients = [];
+    for(let i=0;i<ingredientCount;i++){
+        renderAddIngredients.push(<Ingredient key={i} index={i} history={history} ingredientName={meal.ingredients[i] ? meal.ingredients[i].name : null} image={meal.ingredients[i] ? meal.ingredients[i].image : null} inBox={meal.ingredients[i] ? meal.ingredients[i].inBox : null} meal={meal} setMeal={setMeal}  />);
+    }
 
     return (
         <div>
@@ -42,16 +55,18 @@ const EditMeal = ({ history }) => {
                             nutrition: values.meal.nutrition, 
                             allergens: values.meal.allergens
                         };
-                        console.log(JSON.stringify(values.meal.title, null, 2));
-                        console.log(newValues);
-                        axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
+                        console.log(JSON.stringify(values.meal, null, 2));
+
+                        axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, values.meal).then(res => {
                             if(res.status != 200) return setStatus(
                                 <Alert color="danger">
                                     <strong>Oh snap!</strong> Change a few things up and try submitting again.
                                 </Alert>
                             );
-                            console.log(res.data);
+                            history.push('/admin/meals');
                             setMeal(res.data);
+                            setIngredientCount(0);
+                            console.log(ingredientCount);
                             setStatus(
                                 <Alert color="success">
                                     Meal successfully updated!
@@ -68,10 +83,17 @@ const EditMeal = ({ history }) => {
                         setSubmitting
                     }) => (
                         <Form>
-                            {status}                        
+                            <Field hidden value={meal} onChange={handleChange} onBlur={handleBlur} />
+                            {status}
                             <div className="container-fluid">
                                 <Row className="form-wizard">
                                     <Col sm="12">
+                                        <ol className="breadcrumb mb-0">
+                                            <li className="breadcrumb-item">
+                                                <Link to="/admin/meals">View Meals</Link>
+                                            </li>
+                                            <li className="breadcrumb-item active">{meal.title}</li>
+                                        </ol>
                                         <Card>
                                             <CardBody>
                                                 <h4 className="mt-0 header-title">{meal.title}</h4>
@@ -85,15 +107,15 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="title" className="col-lg-3 col-form-label">Title</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} defaultValue={meal.title ? meal.title : null} id="meal.title" name="meal.title" type="text" className="form-control" />
+                                                                    <Field onChange={handleChange} id="meal.title" name="meal.title" type="text" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <div className="form-group row">
-                                                                <label htmlFor="duration" className="col-lg-3 col-form-label">Duration</label>
+                                                                <label htmlFor="meal.duration" className="col-lg-3 col-form-label">Duration</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} defaultValue={meal.duration ? meal.duration : null} id="meal.duration" name="duration" type="text" className="form-control" />
+                                                                    <Field onChange={handleChange} id="meal.duration" name="meal.duration" type="text" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -101,11 +123,14 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="ingredients" className="col-lg-3 col-form-label">Ingredients</label>
                                                                 <div className="col-lg-9">
-                                                                    <Editor
-                                                                        toolbarClassName="toolbarClassName"
-                                                                        wrapperClassName="wrapperClassName"
-                                                                        editorClassName="editorClassName"
-                                                                    />
+                                                                    <div>
+                                                                        {renderAddIngredients}
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <span>Add Ingredient </span>
+                                                                        <i className="mdi mdi-plus-circle-outline" onClick={addIngredient} style={{cursor: "pointer"}}></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -126,7 +151,7 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="diet" className="col-lg-3 col-form-label">Diet</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} defaultValue={meal.diet ? meal.diet : null} id="meal.diet" name="meal.diet" type="text" className="form-control" />
+                                                                    <Field onChange={handleChange}  id="meal.diet" name="meal.diet" type="text" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -134,7 +159,7 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="servings" className="col-lg-3 col-form-label">Servings</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.servings ? meal.servings : 1} id="meal.servings" name="meal.servings" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.servings" name="meal.servings" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -142,7 +167,7 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="calPerServing" className="col-lg-3 col-form-label">Calories Per Serving</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.calPerServing ? meal.calPerServing : 1} id="meal.calPerServing" name="meal.calPerServing" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.calPerServing" name="meal.calPerServing" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -150,7 +175,7 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="isFeatured" className="col-lg-3 col-form-label">Featured Recipe</label>
                                                                 <div className="col-lg-1">
-                                                                    <Field onChange={handleChange} type="checkbox" defaultValue={meal.isFeatured} id="meal.isFeatured" name="meal.isFeatured" className="form-control" />
+                                                                    <Field onChange={handleChange} type="checkbox"  id="meal.isFeatured" name="meal.isFeatured" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,7 +196,7 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="cuisine" className="col-lg-3 col-form-label">Cuisine</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="text" defaultValue={meal.cuisine ? meal.cuisine : null} checked={meal.cuisine} id="meal.cuisine" name="meal.cuisine" className="form-control" />
+                                                                    <Field onChange={handleChange} type="text"  checked={meal.cuisine} id="meal.cuisine" name="meal.cuisine" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -182,67 +207,67 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.energy" className="col-lg-3 col-form-label">Energy (kJ)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.energy ? meal.nutrition.energy : null} id="meal.nutrition.energy" name="meal.nutrition.energy" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.nutrition.energy" name="meal.nutrition.energy" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.fat" className="col-lg-3 col-form-label">Fat (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.fat ? meal.nutrition.fat : null} id="meal.nutrition.fat" name="meal.nutrition.fat" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.fat" name="meal.nutrition.fat" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.saturatedFat" className="col-lg-3 col-form-label">Saturated Fat (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.saturatedFat ? meal.nutrition.saturatedFat : null} id="meal.nutrition.saturatedFat" name="meal.nutrition.saturatedFat" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.nutrition.saturatedFat" name="meal.nutrition.saturatedFat" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.unsaturatedFat" className="col-lg-3 col-form-label">Unsaturated Fat (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.unsaturatedFat ? meal.nutrition.unsaturatedFat : null} id="meal.nutrition.unsaturatedFat" name="meal.nutrition.unsaturatedFat" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.unsaturatedFat" name="meal.nutrition.unsaturatedFat" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.carbs" className="col-lg-3 col-form-label">Carbs (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.carbs ? meal.nutrition.carbs : null} id="meal.nutrition.carbs" name="meal.nutrition.carbs" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.carbs" name="meal.nutrition.carbs" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.fiber" className="col-lg-3 col-form-label">Fiber (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.fiber ? meal.nutrition.fiber : null} id="meal.nutrition.fiber" name="meal.nutrition.fiber" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.fiber" name="meal.nutrition.fiber" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.sugars" className="col-lg-3 col-form-label">Sugars (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.sugars ? meal.nutrition.sugars : null} id="meal.nutrition.sugars" name="meal.nutrition.sugars" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.sugars" name="meal.nutrition.sugars" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.protein" className="col-lg-3 col-form-label">Protein (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.protein ? meal.nutrition.protein : null} id="meal.nutrition.protein" name="meal.nutrition.protein" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.protein" name="meal.nutrition.protein" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.others" className="col-lg-3 col-form-label">Others (g)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.others ? meal.nutrition.others : null} id="meal.nutrition.others" name="meal.nutrition.others" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.nutrition.others" name="meal.nutrition.others" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.cholesterol" className="col-lg-3 col-form-label">Cholesterol (mg)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.cholesterol ? meal.nutrition.cholesterol : null} id="meal.nutrition.cholesterol" name="meal.nutrition.cholesterol" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number" id="meal.nutrition.cholesterol" name="meal.nutrition.cholesterol" className="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div className="form-group row">
                                                                 <label htmlFor="meal.nutrition.sodium" className="col-lg-3 col-form-label">Sodium (mg)</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange} type="number" defaultValue={meal.nutrition && meal.nutrition.sodium ? meal.nutrition.sodium : null} id="meal.nutrition.sodium" name="meal.nutrition.sodium" className="form-control" />
+                                                                    <Field onChange={handleChange} type="number"  id="meal.nutrition.sodium" name="meal.nutrition.sodium" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
