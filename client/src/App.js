@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
+import React, { useState, Component } from "react";
+import { Switch, useHistory, Route, BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
+import AdminContext from './context/AdminContext';
 
 // Import Routes
 import { authProtectedRoutes, publicRoutes } from "./routes/";
@@ -16,6 +17,8 @@ import "./assets/scss/theme.scss";
 
 // Import Firebase Configuration file
 import { initFirebaseBackend } from "./helpers/authUtils";
+import ViewMeals from "./components/Admin/Meals/ViewMeals";
+import EditMeal from "./components/Admin/Meals/EditMeal";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUctS2mlPY58Y-E1AypSUz7OO0zhlBLC8",
@@ -31,20 +34,16 @@ const firebaseConfig = {
 // init firebase backend
 initFirebaseBackend(firebaseConfig);
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.getLayout = this.getLayout.bind(this);
-  }
-
+const App = () => {
+  const [state, setState] = useState();
+  const [admin, setAdmin] = useState(null);
   /**
    * Returns the layout
    */
-  getLayout = () => {
+  const getLayout = () => {
     let layoutCls = VerticalLayout;
 
-    switch (this.props.layout.layoutType) {
+    switch (state) {
       case "horizontal":
         layoutCls = HorizontalLayout;
         break;
@@ -55,12 +54,13 @@ class App extends Component {
     return layoutCls;
   };
 
-  render() {
-    const Layout = this.getLayout();
+  const Layout = getLayout();
+  const history = useHistory();
 
-    return (
-      <React.Fragment>
-        <Router>
+  return (
+    <React.Fragment>
+      <Router history={history}>
+        <AdminContext.Provider value={{ admin, setAdmin }}>
           <Switch>
             {publicRoutes.map((route, idx) => (
               <AppRoute
@@ -82,11 +82,11 @@ class App extends Component {
               />
             ))}
           </Switch>
-        </Router>
-      </React.Fragment>
-    );
-  }
-}
+        </AdminContext.Provider>
+      </Router>
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = state => {
   return {

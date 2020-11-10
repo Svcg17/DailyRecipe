@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const ViewCustomers = () => {
+import EditMeal from '../EditMeal';
+
+const ViewCustomers = ({ history }) => {
     const [meals, setMeals] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/menu`).then(res => setMeals(res.data));
     }, []);
-    console.log(meals);
+
     return (
         <div>
             <Row>
@@ -20,8 +23,12 @@ const ViewCustomers = () => {
                 meals ? 
                 meals.map(meal => {
                     return (
-                        <Row>
-                            <Col>{meal.title}</Col>
+                        <Row key={meal._id}>
+                            <Col>
+                                <Link to={`/admin/meals/${meal._id}`} >
+                                    {meal.title}
+                                </Link>
+                            </Col>
                             <Col>{meal.diet}</Col>
                             <Col>{meal.duration}</Col>
                             <Col>{meal.servings}</Col>
