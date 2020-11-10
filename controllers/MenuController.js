@@ -5,7 +5,19 @@ import Recipe from '../models/recipe';
  * Adds new recipe
  */
 export async function postRecipe(req, res) {
-  const newRecipe = new Recipe({ title: req.body.title, ingredients: req.body.ingredients, instructions: req.body.instructions, duration: req.body.duration, diet: req.body.diet, servings: req.body.servings });
+  const newRecipe = new Recipe({ 
+    title: req.body.title, 
+    ingredients: req.body.ingredients, 
+    instructions: req.body.instructions, 
+    duration: req.body.duration, 
+    diet: req.body.diet, 
+    servings: req.body.servings,
+    calPerServing: req.body.calPerServing,
+    season: req.body.season,
+    cuisine: req.body.cuisine,
+    nutrition: req.body.nutrition,
+    allergens: req.body.allergens,
+  });
   await newRecipe.save(err => {
     if(err) return res.status(400).json({ error: err.message });
     return res.status(200).json({ message: 'success' });
@@ -18,7 +30,7 @@ export async function postRecipe(req, res) {
  */
 export async function putRecipe(req, res) {
   try {
-    const updateRecipe = await Recipe.findOneAndUpdate(req.params.id, req.body, { new: true });
+    const updateRecipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true });
     await updateRecipe.save();
     res.status(200).send({ updatedRecipe: updateRecipe });
   } catch (err) {
@@ -50,5 +62,12 @@ export function getRecipe(req, res) {
   Recipe.findById(recipeId, (err, recipe) => {
     if (err || !recipe) return res.status(404).json({ error: 'Recipe not found' });
     res.status(200).json(recipe);
+  });
+}
+
+export function deleteRecipe(req, res) {
+  Recipe.deleteOne({ _id: req.params.id }, (err) => {
+    if(err) return res.status(404).json({ error: 'Recipe not found' });
+    res.status(200).json({ message: `successfully deleted recipe ${req.params.id}` });
   });
 }

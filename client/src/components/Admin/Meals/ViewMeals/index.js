@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import EditMeal from '../EditMeal';
+import Loading from '../../Loading';
 
 const ViewCustomers = ({ history }) => {
     const [meals, setMeals] = useState(null);
@@ -13,6 +14,9 @@ const ViewCustomers = ({ history }) => {
 
     return (
         <div>
+            <Link to="/admin/meals/create" className="text-right">
+                <button className="btn btn-primary">Create new meal</button>
+            </Link>
             <Row>
                 <Col>Meal Name</Col>
                 <Col>Diet</Col>
@@ -35,7 +39,7 @@ const ViewCustomers = ({ history }) => {
                         </Row>
                     );
                 })
-                : null
+                : <Loading />
             }
         </div>
     );

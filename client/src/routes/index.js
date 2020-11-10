@@ -99,6 +99,7 @@ import Pages404 from "../components/Admin/ExtraPages/Pages404";
 import Pages500 from "../components/Admin/ExtraPages/Pages500";
 import PagesMaintenance from "../components/Admin/ExtraPages/PagesMaintenance";
 import PagesComingsoon from "../components/Admin/ExtraPages/PagesComingsoon";
+import CreateMeal from "../components/Admin/Meals/CreateMeal";
 
 const authProtectedRoutes = [
   // Calendar
@@ -117,6 +118,7 @@ const authProtectedRoutes = [
   // Ui Pages
   { path: "/admin/ui-sweet-alert", component: UiSweetAlert },
   // { path: "/admin/ui-alerts", component: UiAlerts },
+  { path: "/admin/meals/create", component: CreateMeal },
   { path: "/admin/meals/:id", component: EditMeal},
   { path: "/admin/meals", component: ViewMeals },
 
