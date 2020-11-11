@@ -13,35 +13,61 @@ const EditMeal = ({ history }) => {
     const [meal, setMeal] = useState(null);
     const [status, setStatus] = useState(null);
     const [ingredientCount, setIngredientCount] = useState(0);
+    const [deleteAtIndex, setDeleteAtIndex] = useState([]);
+    const [renderIngredients, setRenderIngredients] = useState([]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
             setMeal(res.data);
-            setIngredientCount(res.data.ingredients.length);
+            let renderAddIngredients = renderIngredients;
+            if(res.data.ingredients){
+                res.data.ingredients.map((ingredient, index) => {
+                    renderAddIngredients.push(<Ingredient key={index} index={index} history={history} meal={res.data} setMeal={setMeal} deleteAtIndex={deleteAtIndex} setDeleteAtIndex={setDeleteAtIndex} />);
+                });
+                setIngredientCount(res.data.ingredients.length);
+                setRenderIngredients(renderAddIngredients);
+                console.log('asdfasarr', renderIngredients);
+            }
+            // setIngredientCount(res.data.ingredients.length);
         });
     }, []);
+
+    // useEffect(() => {
+    //     let renderAddIngredients = renderIngredients;
+    //     console.log(meal, renderAddIngredients, 'after deleting');
+    //     setRenderIngredients([...renderAddIngredients]);
+    //     console.log(renderIngredients);
+    // }, [deleteAtIndex]);
+
     const addIngredient = () => {
+        // setIngredientCount(ingredientCount + 1);
+        let tempArr = [];
+        console.log(ingredientCount);
+        tempArr.push(<Ingredient key={ingredientCount} index={ingredientCount} history={history} meal={meal} setMeal={setMeal} deleteAtIndex={deleteAtIndex} setDeleteAtIndex={setDeleteAtIndex} />);
         setIngredientCount(ingredientCount + 1);
+        setRenderIngredients(x => x.concat(tempArr));
     };
     const handleDelete = () => {
         axios.delete(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
             history.push('/admin/meals');
         })
     };
-    let renderAddIngredients = [];
-    for(let i=0;i<ingredientCount;i++){
-        renderAddIngredients.push(<Ingredient key={i} index={i} history={history} ingredientName={meal.ingredients[i] ? meal.ingredients[i].name : null} image={meal.ingredients[i] ? meal.ingredients[i].image : null} inBox={meal.ingredients[i] ? meal.ingredients[i].inBox : null} meal={meal} setMeal={setMeal}  />);
-    }
+    // let renderAddIngredients = [];
+    // for(let i=0;i<ingredientCount;i++){
+    //     console.log(i, meal.ingredients[i], 'check');
+    //     renderAddIngredients.push(<Ingredient key={i} index={i} history={history} meal={meal} setMeal={setMeal} setIngredientCount={setIngredientCount} />);
+    // }
 
     return (
         <div>
             {
                 meal ? 
                 <Formik
+                    key={meal._id}
                     initialValues={{meal}}
                     onSubmit={(values, { setSubmitting }) => {
                         alert(JSON.stringify(values.meal, null, 2));
-                        const newValues = {
+                        let newValues = {
                             title: values.meal.title, 
                             // ingredients: values.meal.ingredients, 
                             // instructions: values.meal.instructions, 
@@ -55,23 +81,21 @@ const EditMeal = ({ history }) => {
                             nutrition: values.meal.nutrition, 
                             allergens: values.meal.allergens
                         };
+                        newValues.ingredients = [];
+                        if(meal.ingredients) {
+                            meal.ingredients.map((m, ind) => {
+                                if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
+                            });
+                        }
                         console.log(JSON.stringify(values.meal, null, 2));
 
-                        axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, values.meal).then(res => {
+                        axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
                             if(res.status != 200) return setStatus(
                                 <Alert color="danger">
                                     <strong>Oh snap!</strong> Change a few things up and try submitting again.
                                 </Alert>
                             );
                             history.push('/admin/meals');
-                            setMeal(res.data);
-                            setIngredientCount(0);
-                            console.log(ingredientCount);
-                            setStatus(
-                                <Alert color="success">
-                                    Meal successfully updated!
-                                </Alert>
-                            );
                         })
                         setSubmitting(false);
                     }}
@@ -124,7 +148,13 @@ const EditMeal = ({ history }) => {
                                                                 <label htmlFor="ingredients" className="col-lg-3 col-form-label">Ingredients</label>
                                                                 <div className="col-lg-9">
                                                                     <div>
-                                                                        {renderAddIngredients}
+                                                                        {renderIngredients.map((rend, ind) => (
+                                                                            <div key={ind}>
+                                                                                {
+                                                                                    !deleteAtIndex.includes(ind) ? (rend) : null
+                                                                                }
+                                                                            </div>
+                                                                        ))}
                                                                     </div>
 
                                                                     <div>
