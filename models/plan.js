@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const PlanSchema = new Schema(
   {
     name: String,
-    diet: { type: String, enum: ['meat and vegetables', 'vegetables'] },
+    diet: { type: Schema.Types.ObjectId, ref: 'Diet', required: false },
     recipesPerWeek: [Number],
     servings: { type: Number, enum: [2, 4] },
     pricePerServing: Number,

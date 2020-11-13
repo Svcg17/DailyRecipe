@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe } from '../controllers/MenuController';
 import { postPlan, getPlans, getPlanMenu, storeMenu } from '../controllers/PricingController';
+import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
 import {
   registerUser, login,
   logout, verifyToken,
@@ -33,6 +34,12 @@ router.post('/api/plans', postPlan);
 router.get('/api/plans', getPlans);
 router.get('/api/plan/menu/:planId', getPlanMenu);
 router.put('/api/plan/menu', storeMenu);
+
+// diet route
+router.put('/api/diet/:id', putDiet);
+router.delete('/api/diet/:id', deleteDiet);
+router.post('/api/diet', postDiet);
+router.get('/api/diet', getAllDiet);
 
 // user routes
 router.use('/users', verifyToken);

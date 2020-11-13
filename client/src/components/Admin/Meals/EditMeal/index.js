@@ -11,6 +11,7 @@ import Ingredient from '../Ingredient';
 const EditMeal = ({ history }) => {
     let { id } = useParams();
     const [meal, setMeal] = useState(null);
+    const [diet, setDiet] = useState(null);
     const [status, setStatus] = useState(null);
     const [ingredientCount, setIngredientCount] = useState(0);
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
@@ -26,9 +27,11 @@ const EditMeal = ({ history }) => {
                 });
                 setIngredientCount(res.data.ingredients.length);
                 setRenderIngredients(renderAddIngredients);
-                console.log('asdfasarr', renderIngredients);
             }
             // setIngredientCount(res.data.ingredients.length);
+        });
+        axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
+            setDiet(res.data);
         });
     }, []);
 
@@ -87,8 +90,7 @@ const EditMeal = ({ history }) => {
                                 if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
                             });
                         }
-                        console.log(JSON.stringify(values.meal, null, 2));
-
+                        console.log(JSON.stringify(newValues, null, 2));
                         axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
                             if(res.status != 200) return setStatus(
                                 <Alert color="danger">
@@ -181,7 +183,14 @@ const EditMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="diet" className="col-lg-3 col-form-label">Diet</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange}  id="meal.diet" name="meal.diet" type="text" className="form-control" />
+                                                                    <Field as="select" onChange={handleChange} id="meal.diet" name="meal.diet" className="form-control">
+                                                                        {
+                                                                            diet ?
+                                                                            diet.map(diett => (
+                                                                                <option selected={meal.diet && meal.diet._id === diett._id ? true : false} value={diett._id}>{diett.name}</option>
+                                                                            )) : null
+                                                                        }
+                                                                    </Field>
                                                                 </div>
                                                             </div>
                                                         </div>

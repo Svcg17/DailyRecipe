@@ -16,9 +16,9 @@ const ViewCustomers = ({ history }) => {
         <div>
             <ol className="breadcrumb mb-0">
                 <li className="breadcrumb-item">
-                    <Link to="/admin/meals">View Meals</Link>
+                    <Link to="/admin/meals">Meals</Link>
                 </li>
-                <li className="breadcrumb-item active"></li>
+                <li className="breadcrumb-item active">View Meals</li>
             </ol>
             <div className="text-right">
                 <Link to="/admin/meals/create">
@@ -27,7 +27,6 @@ const ViewCustomers = ({ history }) => {
             </div>
             <Row>
                 <Col>Meal Name</Col>
-                <Col>Diet</Col>
                 <Col>Duration</Col>
                 <Col>Servings</Col>
             </Row>
@@ -41,7 +40,6 @@ const ViewCustomers = ({ history }) => {
                                     {meal.title}
                                 </Link>
                             </Col>
-                            <Col>{meal.diet}</Col>
                             <Col>{meal.duration}</Col>
                             <Col>{meal.servings}</Col>
                         </Row>

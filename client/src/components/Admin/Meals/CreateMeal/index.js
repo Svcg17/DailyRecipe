@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
 
+import Ingredient from '../Ingredient';
+
 const CreateMeal = ({ history }) => {
-    let [meal, setMeal] = useState(null);
-    let [status, setStatus] = useState(null);
+    const [meal, setMeal] = useState(null);
+    const [diet, setDiet] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [ingredientCount, setIngredientCount] = useState(0);
+    const [deleteAtIndex, setDeleteAtIndex] = useState([]);
+    const [renderIngredients, setRenderIngredients] = useState([]);
+
+    const addIngredient = () => {
+        // setIngredientCount(ingredientCount + 1);
+        let tempArr = [];
+        console.log(ingredientCount);
+        tempArr.push(<Ingredient key={ingredientCount} index={ingredientCount} history={history} meal={meal} setMeal={setMeal} deleteAtIndex={deleteAtIndex} setDeleteAtIndex={setDeleteAtIndex} />);
+        setIngredientCount(ingredientCount + 1);
+        setRenderIngredients(x => x.concat(tempArr));
+    };
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
+            setDiet(res.data);
+        });
+    }, []);
 
     return (
         <div>
@@ -29,6 +50,12 @@ const CreateMeal = ({ history }) => {
                             nutrition: values.meal.nutrition, 
                             allergens: values.meal.allergens
                         };
+                        newValues.ingredients = [];
+                        if(meal.ingredients) {
+                            meal.ingredients.map((m, ind) => {
+                                if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
+                            });
+                        }
                         console.log(JSON.stringify(values.meal.title, null, 2));
                         console.log(newValues);
                         axios.post(`${process.env.REACT_APP_HOST}/api/menu`, newValues).then(res => {
@@ -61,9 +88,9 @@ const CreateMeal = ({ history }) => {
                                     <Col sm="12">
                                         <ol className="breadcrumb mb-0">
                                             <li className="breadcrumb-item">
-                                                <Link to="/admin/meals">View Meals</Link>
+                                                <Link to="/admin/meals">Meals</Link>
                                             </li>
-                                            <li className="breadcrumb-item active">Create a meal</li>
+                                            <li className="breadcrumb-item active">Create a New Meal</li>
                                         </ol>
                                         <Card>
                                             <CardBody>
@@ -91,11 +118,20 @@ const CreateMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="ingredients" className="col-lg-3 col-form-label">Ingredients</label>
                                                                 <div className="col-lg-9">
-                                                                    <Editor
-                                                                        toolbarClassName="toolbarClassName"
-                                                                        wrapperClassName="wrapperClassName"
-                                                                        editorClassName="editorClassName"
-                                                                    />
+                                                                    <div>
+                                                                        {renderIngredients.map((rend, ind) => (
+                                                                            <div key={ind}>
+                                                                                {
+                                                                                    !deleteAtIndex.includes(ind) ? (rend) : null
+                                                                                }
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <span>Add Ingredient </span>
+                                                                        <i className="mdi mdi-plus-circle-outline" onClick={addIngredient} style={{cursor: "pointer"}}></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -116,7 +152,14 @@ const CreateMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="diet" className="col-lg-3 col-form-label">Diet</label>
                                                                 <div className="col-lg-9">
-                                                                    <Field onChange={handleChange}  id="meal.diet" name="meal.diet" type="text" className="form-control" />
+                                                                    <Field as="select" onChange={handleChange} id="meal.diet" name="meal.diet" className="form-control">
+                                                                        {
+                                                                            diet ?
+                                                                            diet.map(diett => (
+                                                                                <option value={diett._id}>{diett.name}</option>
+                                                                            )) : null
+                                                                        }
+                                                                    </Field>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -140,7 +183,7 @@ const CreateMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="isFeatured" className="col-lg-3 col-form-label">Featured Recipe</label>
                                                                 <div className="col-lg-1">
-                                                                    <Field onChange={handleChange} type="checkbox" name="meal.isFeatured" className="form-control" />
+                                                                    <Field onChange={handleChange} type="checkbox" name="meal.isFeatured" id="meal.isFeatured" className="form-control" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -240,7 +283,7 @@ const CreateMeal = ({ history }) => {
                                                             <div className="form-group row">
                                                                 <label htmlFor="allergens" className="col-lg-3 col-form-label">Allergens</label>
                                                                 <div className="col-lg-9">
-                                                                    <textarea id="allergens" name="allergens" rows="4" className="form-control"></textarea>
+                                                                    <textarea id="allergens" onChange={handleChange} name="allergens" rows="4" className="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -11,7 +11,7 @@ const RecipeSchema = new Schema(
     }],
     instructions: Schema.Types.Mixed,
     duration: String,
-    diet: { type: String, enum: ['meat and vegetables', 'vegetables'] },
+    diet: { type: Schema.Types.ObjectId, ref: 'Diet', required: false },
     servings: { type: Number, enum: [2, 4] },
     calPerServing: Number,
     isFeatured: { type: Boolean, default: false },

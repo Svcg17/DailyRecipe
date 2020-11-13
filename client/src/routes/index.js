@@ -24,6 +24,7 @@ import Emailtemplatebilling from "../components/Admin/Apps/EmailTemplate/email-t
 // Customers
 import ViewMeals from '../components/Admin/Meals/ViewMeals';
 import EditMeal from "../components/Admin/Meals/EditMeal";
+import CreateDiet  from "../components/Admin/Meals/CreateDiet";
 
 import UiSweetAlert from "../components/Admin/UI/UiSweetAlert";
 import UiAlerts from "../components/Admin/UI/Alerts";
@@ -121,6 +122,7 @@ const authProtectedRoutes = [
   { path: "/admin/meals/create", component: CreateMeal },
   { path: "/admin/meals/:id", component: EditMeal},
   { path: "/admin/meals", component: ViewMeals },
+  { path: "/admin/diet", component: CreateDiet },
 
   { path: "/admin/ui-buttons", component: UiButtons },
   { path: "/admin/ui-cards", component: UiCards },

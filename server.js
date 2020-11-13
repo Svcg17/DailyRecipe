@@ -64,6 +64,7 @@ app.use('/api/auth', router);
 app.use('/api/menu', router);
 app.use('/api/plans', router);
 app.use('/api/users', router);
+app.use('/api/diet', router);
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);
