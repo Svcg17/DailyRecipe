@@ -5,37 +5,42 @@ import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 
 import Loading from '../../Loading';
-const AddPlan = ({ hasId, index, plans, diet, recipes, setDeleteAtIndex, setPlans, setRecipes }) => {
+
+const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex, setPlans, setRecipes }) => {
     const [localState, setLocalState] = useState([...plans]);
     const [localRecipes, setLocalRecipes] = useState([...recipes]);
 
     useEffect(() => {
-        const newElement = {
-            name: null,
-            diet: null,
-            recipesPerWeek: 0,
-            servings: 0,
-            pricePerServing: 0,
-            menu: null
-        };
-        if(!hasId) setPlans(x => [...x, newElement])
+        if(!hasId) {
+            const newElement = {
+                name: null,
+                diet: null,
+                recipesPerWeek: 0,
+                servings: 0,
+                pricePerServing: 0,
+                menu: null
+            };
+            setPlans(x => [...x, newElement]);
+        }
     }, []);
 
-    useEffect( () => {
-        let newRecipes = recipes;
-        if(index < localState.length && localState[index].diet && localState[index].servings) {
-            axios.get(`${process.env.REACT_APP_HOST}/api/plan/${localState[index].diet}/${localState[index].servings}`).then(res => {
-                if(index < localRecipes.length) {
-                    console.log('res', res.data);
-                    newRecipes[index] = res.data;
-                    console.log('new recipes', newRecipes);
-                } else {
-                    newRecipes.push(res.data);
-                }
-                console.log('updated recipes', newRecipes);
-                setLocalRecipes(x => [...newRecipes]);
-                setRecipes(x => [...newRecipes]);
-            });
+    useEffect(() => {
+        if(localState.length === plans.length) {
+            let newRecipes = recipes;
+            if(index < localState.length && localState[index].diet && localState[index].servings) {
+                axios.get(`${process.env.REACT_APP_HOST}/api/plan/${localState[index].diet}/${localState[index].servings}`).then(res => {
+                    if(index < localRecipes.length) {
+                        console.log('res', res.data);
+                        newRecipes[index] = res.data;
+                        console.log('new recipes', newRecipes);
+                    } else {
+                        newRecipes.push(res.data);
+                    }
+                    console.log('updated recipes', newRecipes, index);
+                    setLocalRecipes(x => [...newRecipes]);
+                    setRecipes(x => [...newRecipes]);
+                });
+            }
         }
     }, [localState]);
 

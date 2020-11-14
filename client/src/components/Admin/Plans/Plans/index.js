@@ -7,7 +7,7 @@ import { Formik, Form, Field } from 'formik';
 import Loading from '../../Loading';
 import AddPlan from './AddPlan';
 
-const Plans = () => {
+const Plans = ({ history }) => {
     const [plans, setPlans] = useState(null);
     const [diet, setDiet] = useState(null);
     const [recipes, setRecipes] = useState([]);
@@ -46,6 +46,9 @@ const Plans = () => {
                 </li>
                 <li className="breadcrumb-item active">Plans</li>
             </ol>
+            <div>
+                <h3>The "Menu" portion for each plan contains the meals/recipes included in it. The meals/recipes are automatically chosen and updated by matching the diet and servings properties. If you want to change the diet and servings of a meal/recipe, please go to the "Meals" category in the sidebar and click "View Meals"</h3>
+            </div>
             <Row>
                 <Col>Plan Name</Col>
                 <Col>Diet</Col>
