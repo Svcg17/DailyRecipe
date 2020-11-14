@@ -13,6 +13,16 @@ export async function postPlan(req, res) {
   });
 };
 
+export async function putPlan(req, res) {
+  try {
+    const updatedPlan = await Plan.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    await updatedPlan.save();
+    res.status(200).send({ updatedPlan: updatedPlan });
+  } catch (err) {
+    res.status(400).send({ error: err.message });
+  }
+};
+
 /**
  * Middleware function for GET /api/plans
  * Retrieves all available pricing plans
@@ -22,6 +32,27 @@ export function getPlans(req, res) {
     if (err) return res.status(404).json({ error: 'Plans not found' });
     res.status(200).json(plans);
   });
+}
+
+/**
+ * Middleware function for GET /api/plan/:diet/:servings
+ * Retrieves a plan's recipes
+ * params:
+ *  - diet: id of the diet
+ *  - servings: number of servings
+ */
+export function getRecipesFromDietAndServings(req, res) {
+  Recipes.find({ diet: req.params.diet, servings: req.params.servings }, (err, recipes) => {
+    if(err) return res.status(404).json({ error: err });
+    res.status(200).json(recipes);
+  });
+}
+
+export function deletePlan(req, res) {
+  Plan.deleteOne({ _id: req.params.id  }, err => {
+    if(err) return res.status(404).json({ error: 'Plan not found' });
+    res.status(200).json({ message: `successfully deleted plan ${req.params.id}` });
+  })
 }
 
 /**

@@ -58,9 +58,6 @@ const SidebarContent = props => {
             <li>
               <Link to="/admin/meals/create">Create a New Meal</Link>
             </li>
-            <li>
-              <Link to="/admin/diet">Diet</Link>
-            </li>
             {/* <li>
               <Link to="ui-cards">Cards</Link>
             </li>
@@ -123,6 +120,9 @@ const SidebarContent = props => {
           <ul className="sub-menu" aria-expanded="false">
             <li>
               <Link to="/admin/diet">Diet</Link>
+            </li>
+            <li>
+              <Link to="/admin/plans">Plans</Link>
             </li>
             <li>
               <Link to="form-elements">Form Elements</Link>

@@ -5,8 +5,8 @@ const PlanSchema = new Schema(
   {
     name: String,
     diet: { type: Schema.Types.ObjectId, ref: 'Diet', required: false },
-    recipesPerWeek: [Number],
-    servings: { type: Number, enum: [2, 4] },
+    recipesPerWeek: Number,
+    servings: Number,
     pricePerServing: Number,
     description: String,
     menu: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],

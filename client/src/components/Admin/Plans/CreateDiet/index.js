@@ -37,7 +37,7 @@ const CreateDiet = ({ history }) => {
         <div>
             <ol className="breadcrumb mb-0">
                 <li className="breadcrumb-item">
-                    <Link to="/admin/meals">Meals</Link>
+                    <Link to="/admin/plans">Plans</Link>
                 </li>
                 <li className="breadcrumb-item active">Diet</li>
             </ol>

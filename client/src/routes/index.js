@@ -21,10 +21,13 @@ import Emailtemplatealert from "../components/Admin/Apps/EmailTemplate/email-tem
 import Emailtemplatebasic from "../components/Admin/Apps/EmailTemplate/email-template-basic";
 import Emailtemplatebilling from "../components/Admin/Apps/EmailTemplate/email-template-billing";
 
-// Customers
+// Meals
 import ViewMeals from '../components/Admin/Meals/ViewMeals';
 import EditMeal from "../components/Admin/Meals/EditMeal";
-import CreateDiet  from "../components/Admin/Meals/CreateDiet";
+import CreateDiet  from "../components/Admin/Plans/CreateDiet";
+
+// Plans
+import Plans from '../components/Admin/Plans/Plans';
 
 import UiSweetAlert from "../components/Admin/UI/UiSweetAlert";
 import UiAlerts from "../components/Admin/UI/Alerts";
@@ -123,6 +126,7 @@ const authProtectedRoutes = [
   { path: "/admin/meals/:id", component: EditMeal},
   { path: "/admin/meals", component: ViewMeals },
   { path: "/admin/diet", component: CreateDiet },
+  { path: "/admin/plans", component: Plans },
 
   { path: "/admin/ui-buttons", component: UiButtons },
   { path: "/admin/ui-cards", component: UiCards },
