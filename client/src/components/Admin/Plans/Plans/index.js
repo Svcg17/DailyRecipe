@@ -15,13 +15,13 @@ const Plans = ({ history }) => {
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
     const [renderPlan, setRenderPlan] = useState([]);
 
-    useEffect(() => {
+    useEffect(async () => {
         let dietRes;
-        axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
+        await axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
             setDiet(res.data);
             dietRes = res.data;
         });
-        axios.get(`${process.env.REACT_APP_HOST}/api/plans`).then(async plansRes => {
+        await axios.get(`${process.env.REACT_APP_HOST}/api/plans`).then(async plansRes => {
             setPlans(plansRes.data);
             setPlanCount(plansRes.data.length);
             let arr = [];
