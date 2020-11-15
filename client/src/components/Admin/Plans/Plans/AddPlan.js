@@ -8,7 +8,7 @@ import Loading from '../../Loading';
 
 const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex, setPlans, setRecipes }) => {
     const [localState, setLocalState] = useState([...plans]);
-    const [localRecipes, setLocalRecipes] = useState([...recipes]);
+    const [localRecipes, setLocalRecipes] = useState({...recipes});
 
     useEffect(() => {
         if(!hasId) {
@@ -29,16 +29,12 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
             let newRecipes = recipes;
             if(index < localState.length && localState[index].diet && localState[index].servings) {
                 axios.get(`${process.env.REACT_APP_HOST}/api/plan/${localState[index].diet}/${localState[index].servings}`).then(res => {
-                    if(index < localRecipes.length) {
-                        console.log('res', res.data);
-                        newRecipes[index] = res.data;
-                        console.log('new recipes', newRecipes);
-                    } else {
-                        newRecipes.push(res.data);
-                    }
-                    console.log('updated recipes', newRecipes, index);
-                    setLocalRecipes(x => [...newRecipes]);
-                    setRecipes(x => [...newRecipes]);
+                    console.log('res', res.data);
+                    newRecipes[index] = res.data;
+                    console.log('new recipes', newRecipes);
+                    // console.log('updated recipes', newRecipes, index);
+                    setLocalRecipes(x => newRecipes);
+                    setRecipes(x => newRecipes);
                 });
             }
         }

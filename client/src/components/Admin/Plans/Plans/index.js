@@ -10,14 +10,14 @@ import AddPlan from './AddPlan';
 const Plans = ({ history }) => {
     const [plans, setPlans] = useState(null);
     const [diet, setDiet] = useState(null);
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState({});
     const [planCount, setPlanCount] = useState(0);
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
     const [renderPlan, setRenderPlan] = useState([]);
 
-    useEffect(async () => {
+    useEffect(() => {
         let dietRes;
-        await axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
+        axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
             setDiet(res.data);
             dietRes = res.data;
         });
