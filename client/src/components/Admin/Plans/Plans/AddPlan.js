@@ -20,23 +20,19 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
                 pricePerServing: 0,
                 menu: null
             };
+            setLocalState(x => [...x, newElement]);
             setPlans(x => [...x, newElement]);
         }
     }, []);
 
     useEffect(() => {
-        if(localState.length === plans.length) {
-            let newRecipes = recipes;
-            if(index < localState.length && localState[index].diet && localState[index].servings) {
-                axios.get(`${process.env.REACT_APP_HOST}/api/plan/${localState[index].diet}/${localState[index].servings}`).then(res => {
-                    console.log('res', res.data);
-                    newRecipes[index] = res.data;
-                    console.log('new recipes', newRecipes);
-                    // console.log('updated recipes', newRecipes, index);
-                    setLocalRecipes(x => newRecipes);
-                    setRecipes(x => newRecipes);
-                });
-            }
+        let newRecipes = {...localRecipes};
+        if(index < localState.length && localState[index].diet && localState[index].servings) {
+            axios.get(`${process.env.REACT_APP_HOST}/api/plan/${localState[index].diet}/${localState[index].servings}`).then(res => {
+                newRecipes[index] = res.data;
+                setLocalRecipes(newRecipes);
+                setRecipes(newRecipes);
+            });
         }
     }, [localState]);
 
@@ -93,8 +89,8 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
             <div>
                 <h4>Menu</h4>
                 <ul>
-                    { recipes && recipes[index] ? (
-                        recipes[index].map((recipe, ind) => (
+                    { localRecipes && localRecipes[index] ? (
+                        localRecipes[index].map((recipe, ind) => (
                             <li key={`recipes ${ind}`}>
                                 {recipe.title}
                             </li>

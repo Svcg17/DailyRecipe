@@ -15,21 +15,24 @@ const Plans = ({ history }) => {
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
     const [renderPlan, setRenderPlan] = useState([]);
 
-    useEffect(async () => {
-        let dietRes;
-        await axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
-            setDiet(res.data);
-            dietRes = res.data;
-        });
-        await axios.get(`${process.env.REACT_APP_HOST}/api/plans`).then(async plansRes => {
-            setPlans(plansRes.data);
-            setPlanCount(plansRes.data.length);
-            let arr = [];
-            await Promise.all(plansRes.data.map(async (plan, index) => {
-                await arr.push(<AddPlan hasId={true} key={index} index={index} plans={plansRes.data} diet={dietRes} recipes={recipes} setDeleteAtIndex={setDeleteAtIndex} setPlans={setPlans} setRecipes={setRecipes} />);
-            }));
-            await setRenderPlan(arr);
-        });
+    useEffect(() => {
+        const fetchData = async () => {
+            let dietRes;
+            await axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
+                setDiet(res.data);
+                dietRes = res.data;
+            });
+            await axios.get(`${process.env.REACT_APP_HOST}/api/plans`).then(async plansRes => {
+                setPlans(plansRes.data);
+                setPlanCount(plansRes.data.length);
+                let arr = [];
+                await Promise.all(plansRes.data.map(async (plan, index) => {
+                    await arr.push(<AddPlan hasId={true} key={index} index={index} plans={plansRes.data} diet={dietRes} recipes={recipes} setDeleteAtIndex={setDeleteAtIndex} setPlans={setPlans} setRecipes={setRecipes} />);
+                }));
+                await setRenderPlan(arr);
+            });
+        };
+        fetchData();
     }, []);
 
     const addPlan = () => {
