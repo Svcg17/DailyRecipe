@@ -1,4 +1,5 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect } from "react";
+import { Cookies } from 'react-cookie';
 import { Switch, useHistory, Route, BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminContext from './context/AdminContext';
@@ -37,6 +38,16 @@ initFirebaseBackend(firebaseConfig);
 const App = () => {
   const [state, setState] = useState();
   const [admin, setAdmin] = useState(null);
+
+  useEffect(() => {
+      const c = new Cookies();
+      const cookie = c.get('token');
+      if (cookie) {
+        console.log('set login cookie', cookie);
+        setAdmin(cookie);
+      }
+  }, []);
+
   /**
    * Returns the layout
    */

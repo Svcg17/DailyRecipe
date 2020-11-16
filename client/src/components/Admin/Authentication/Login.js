@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 
 // Redux
@@ -15,21 +15,33 @@ import { loginUser } from "../../../store/actions";
 // import images
 import logoSm from "../../../assets/images/logo-sm.png";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+import AdminContext from '../../../context/AdminContext';
+import axios from 'axios';
 
-    // handleValidSubmit
-    this.handleValidSubmit = this.handleValidSubmit.bind(this);
-  }
+const Login = ({ history }) => {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {};
+
+  //   // handleValidSubmit
+  //   this.handleValidSubmit = this.handleValidSubmit.bind(this);
+  // }
 
   // handleValidSubmit
-  handleValidSubmit(event, values) {
-    this.props.loginUser(values, this.props.history);
-  }
+  // const handleValidSubmit = (event, values) => {
+  //   this.props.loginUser(values, this.props.history);
+  // }
+  const { setAdmin } = useContext(AdminContext);
+  const handleValidSubmit = (event, values) => {
+    axios.post(`${process.env.REACT_APP_HOST}/api/auth/adminLogin`, values).then(res => {
+      if(res.status != 200) console.log('error logging in', res);
+      else {
+        setAdmin(res.data.token);
+        history.push('/admin/meals');
+      }
+    });
+  };
 
-  render() {
     return (
       <React.Fragment>
         <div className="home-btn d-none d-sm-block">
@@ -42,7 +54,7 @@ class Login extends Component {
             <Row className="justify-content-center">
               <Col md={8} lg={6} xl={5}>
                 <div className="position-relative">
-                  {this.props.loading ? <Loader /> : null}
+                  {/* {this.props.loading ? <Loader /> : null} */}
 
                   <Card className="overflow-hidden">
                     <div className="bg-primary">
@@ -63,18 +75,18 @@ class Login extends Component {
                       <div className="p-3">
                         <AvForm
                           className="form-horizontal mt-4"
-                          onValidSubmit={this.handleValidSubmit}
+                          onValidSubmit={handleValidSubmit}
                         >
-                          {this.props.error ? (
+                          {/* {this.props.error ? (
                             <Alert color="danger">{this.props.error}</Alert>
-                          ) : null}
+                          ) : null} */}
 
                           <div className="form-group">
                             <AvField
                               name="email"
                               label="Email"
                               className="form-control"
-                              value="admin@themesbrand.com"
+                              // value="admin@themesbrand.com"
                               placeholder="Enter email"
                               type="email"
                               required
@@ -86,7 +98,7 @@ class Login extends Component {
                               label="Password"
                               type="password"
                               required
-                              value="123456"
+                              // value="123456"
                               placeholder="Enter Password"
                             />
                           </div>
@@ -143,12 +155,13 @@ class Login extends Component {
         </div>
       </React.Fragment>
     );
-  }
-}
-
-const mapStatetoProps = state => {
-  const { error, loading } = state.Login;
-  return { error, loading };
 };
 
-export default withRouter(connect(mapStatetoProps, { loginUser })(Login));
+// const mapStatetoProps = state => {
+//   const { error, loading } = state.Login;
+//   return { error, loading };
+// };
+
+// export default withRouter(connect(mapStatetoProps, { loginUser })(Login));
+
+export default Login;

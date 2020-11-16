@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
+import Admin from '../models/admin';
 
 /**
  * Creates a JSON web token with the given data and a cookie:
@@ -64,6 +65,27 @@ export async function registerUser(req, res) {
   });
 }
 
+export async function registerAdmin(req, res) {
+  if (!req.body.email || !req.body.password) res.status(401).json({ error: 'Email and password are required' });
+
+  Admin.findOne({ email: req.body.email }, async (err, admin) => {
+    if (err) return res.status(400).json({ error: err });
+    if (admin) return res.status(400).json({ error: 'Email already exists' });
+    const newAdmin = new Admin({ email: req.body.email });
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(req.body.password, salt, (err, hash) => {
+        if (err) return res.status(400).json({ error: 'Could not encrypt password' });
+        newAdmin.password = hash;
+        newAdmin.save((err) => {
+          if (err) return res.status(400).json({ error: err.message });
+          generateToken({ id: newAdmin.id }, res);
+        });
+      });
+    });
+  });
+}
+
 /**
  * Middleware function for POST /api/auth/login
  * Logs in a user by creating connection with token and cookie
@@ -96,4 +118,18 @@ export async function logout(req, res) {
 
   res.cookie('token', '', { expires: new Date(Date.now()), sameSite: true });
   res.status(200).send('Logged out successfully');
+}
+
+export async function adminLogin(req, res) {
+  if (!req.body.email || !req.body.password) return res.status(401).json({ error: 'Email and password are required' });
+
+  Admin.findOne({ email: req.body.email }, (err, user) => {
+    if (err) return res.status(400).json({ error: 'Failed to log in' });
+    if (user) {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
+        if (err || !result) return res.status(400).json({ error: 'Wrong password' });
+        generateToken({ id: user.id }, res);
+      });
+    } else return res.status(400).json({ error: 'Email not found' });
+  });
 }

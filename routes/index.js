@@ -4,7 +4,7 @@ import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan,
 import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
 import {
   registerUser, login,
-  logout, verifyToken,
+  logout, verifyToken, registerAdmin, adminLogin,
 } from '../controllers/AuthController';
 import {
   getProfile, getUserPlan,
@@ -18,7 +18,9 @@ const router = Router();
 // router.get('/', (req, res) => res.json({ message: 'This is Daily Recipe!!!' }));
 
 // auth routes
+router.post('/api/auth/adminRegister', registerAdmin);
 router.post('/api/auth/register', registerUser);
+router.post('/api/auth/adminLogin', adminLogin);
 router.post('/api/auth/login', login);
 router.get('/api/auth/logout', logout);
 

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import EditMeal from '../EditMeal';
 import Loading from '../../Loading';
+import AdminContext from '../../../../context/AdminContext';
 
 const ViewCustomers = ({ history }) => {
+    const { admin } = useContext(AdminContext);
     const [meals, setMeals] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/menu`).then(res => setMeals(res.data));
