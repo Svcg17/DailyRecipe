@@ -10,6 +10,7 @@ const PlanSchema = new Schema(
     pricePerServing: Number,
     description: String,
     menu: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+    isCooked: { type: Boolean, default: true }
   },
 );
 

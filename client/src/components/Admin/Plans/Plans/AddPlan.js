@@ -18,7 +18,8 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
                 recipesPerWeek: 0,
                 servings: 0,
                 pricePerServing: 0,
-                menu: null
+                menu: null,
+                isCooked: true
             };
             setLocalState(x => [...x, newElement]);
             setPlans(x => [...x, newElement]);
@@ -39,10 +40,15 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
     const handleChange = e => {
         let newState = localState;
         const param = e.currentTarget.id.split(' ')[0];
-        // console.log(newState, index, newState.length);
+        // console.log('length', index, newState.length);
         if(index < newState.length) {
             // edit existing input
-            newState[index][param] = e.currentTarget.value;
+            if (e.currentTarget.id.split(' ')[0] === 'isCooked') {
+                console.log('clicked', !newState[index][param], index, plans.length);
+                newState[index][param] = !newState[index][param];
+            } else {
+                newState[index][param] = e.currentTarget.value;
+            }
             setLocalState(x => [...newState]);
             setPlans(x => [...newState]);
         } else {
@@ -53,7 +59,8 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
                 recipesPerWeek: 0,
                 servings: 0,
                 pricePerServing: 0,
-                menu: null
+                menu: null,
+                isCooked: true
             };
             newElement[param] = e.currentTarget.value;
             setLocalState(x => [...x, newElement]);
@@ -80,10 +87,11 @@ const AddPlan = ({ history, hasId, index, plans, diet, recipes, setDeleteAtIndex
                         }
                     </Field>
                 </Col>
-                <Col><Field onChange={handleChange} defaultValue={hasId ? plans[index].description : null} type="text" id={`description ${index}`} name={`description ${index}`} className="form-control" /></Col>
-                <Col><Field onChange={handleChange} defaultValue={hasId ? plans[index].pricePerServing : null} type="number" id={`pricePerServing ${index}`} name={`pricePerServing ${index}`} className="form-control" /></Col>
-                <Col><Field onChange={handleChange} defaultValue={hasId ? plans[index].servings : null} type="number" id={`servings ${index}`} name={`servings ${index}`} className="form-control" /></Col>
-                <Col><Field onChange={handleChange} defaultValue={hasId ? plans[index].recipesPerWeek : null} type="number" id={`recipesPerWeek ${index}`} name={`recipesPerWeek ${index}`} className="form-control" /></Col>
+                <Col><Field onChange={handleChange} defaultValue={hasId ? localState[index].description : null} type="text" id={`description ${index}`} name={`description ${index}`} className="form-control" /></Col>
+                <Col><Field onChange={handleChange} defaultValue={hasId ? localState[index].pricePerServing : null} type="number" id={`pricePerServing ${index}`} name={`pricePerServing ${index}`} className="form-control" /></Col>
+                <Col><Field onChange={handleChange} defaultValue={hasId ? localState[index].servings : null} type="number" id={`servings ${index}`} name={`servings ${index}`} className="form-control" /></Col>
+                <Col><Field onChange={handleChange} defaultValue={hasId ? localState[index].recipesPerWeek : null} type="number" id={`recipesPerWeek ${index}`} name={`recipesPerWeek ${index}`} className="form-control" /></Col>
+                <Col><input onChange={handleChange} type="checkbox" value={index < localState.length ? localState[index].isCooked : true} checked={index < localState.length ? localState[index].isCooked : true} id={`isCooked ${index}`} name={`isCooked ${index}`} className="form-control" /></Col>
                 <Col><button onClick={handleDelete} value={null} type="button" className="btn btn-danger">Delete</button></Col>
             </Row>
             <div>

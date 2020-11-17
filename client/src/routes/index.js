@@ -21,6 +21,9 @@ import Emailtemplatealert from "../components/Admin/Apps/EmailTemplate/email-tem
 import Emailtemplatebasic from "../components/Admin/Apps/EmailTemplate/email-template-basic";
 import Emailtemplatebilling from "../components/Admin/Apps/EmailTemplate/email-template-billing";
 
+// Profile
+import Profile from '../components/Admin/Profile';
+
 // Meals
 import ViewMeals from '../components/Admin/Meals/ViewMeals';
 import EditMeal from "../components/Admin/Meals/EditMeal";
@@ -106,6 +109,9 @@ import PagesComingsoon from "../components/Admin/ExtraPages/PagesComingsoon";
 import CreateMeal from "../components/Admin/Meals/CreateMeal";
 
 const authProtectedRoutes = [
+  // profile
+  { path: "/admin/profile", component: Profile },
+
   // Calendar
   { path: "/admin/calendar", component: Calendar },
 

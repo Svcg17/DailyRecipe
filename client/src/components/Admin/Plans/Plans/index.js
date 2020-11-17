@@ -59,6 +59,7 @@ const Plans = ({ history }) => {
                 <Col>Price per Serving</Col>
                 <Col>Servings</Col>
                 <Col>Recipes per Week</Col>
+                <Col>Cooked</Col>
                 <Col></Col>
             </Row>
             {
