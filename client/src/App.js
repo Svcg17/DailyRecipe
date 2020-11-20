@@ -38,6 +38,9 @@ initFirebaseBackend(firebaseConfig);
 const App = () => {
   const [state, setState] = useState();
   const [admin, setAdmin] = useState(null);
+  const [adminId, setAdminId] = useState(null);
+  const [adminName, setAdminName] = useState(null);
+  const [adminEmail, setAdminEmail] = useState(null);
 
   useEffect(() => {
       const c = new Cookies();
@@ -45,6 +48,7 @@ const App = () => {
       if (cookie) {
         console.log('set login cookie', cookie);
         setAdmin(cookie);
+        
       }
   }, []);
 
@@ -71,7 +75,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Router history={history}>
-        <AdminContext.Provider value={{ admin, setAdmin }}>
+        <AdminContext.Provider value={{ admin, setAdmin, adminId, setAdminId, adminName, setAdminName, adminEmail, setAdminEmail }}>
           <Switch>
             {publicRoutes.map((route, idx) => (
               <AppRoute

@@ -31,13 +31,18 @@ const Login = ({ history }) => {
   // const handleValidSubmit = (event, values) => {
   //   this.props.loginUser(values, this.props.history);
   // }
-  const { setAdmin } = useContext(AdminContext);
+  const { setAdmin, setAdminId, setAdminName, setAdminEmail } = useContext(AdminContext);
   const handleValidSubmit = (event, values) => {
-    axios.post(`${process.env.REACT_APP_HOST}/api/auth/adminLogin`, values).then(res => {
+    axios.post(`${process.env.REACT_APP_HOST}/api/auth/adminLogin`, values).then(async res => {
       if(res.status != 200) console.log('error logging in', res);
       else {
-        setAdmin(res.data.token);
-        history.push('/admin/meals');
+        await setAdmin(res.data.token);
+        await setAdminId(res.data.user.id);
+        await axios.get(`${process.env.REACT_APP_HOST}/api/auth/admin/${res.data.user.id}`).then(res => {
+          setAdminName(res.data.name);
+          setAdminEmail(res.data.email);
+        });
+        await history.push('/admin/meals');
       }
     });
   };

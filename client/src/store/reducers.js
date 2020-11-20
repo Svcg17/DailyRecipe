@@ -11,9 +11,9 @@ import ForgetPassword from "./auth/forgetpwd/reducer";
 const rootReducer = combineReducers({
   // public
   Layout,
-  Login,
-  Account,
-  ForgetPassword
+  // Login,
+  // Account,
+  // ForgetPassword
 });
 
 export default rootReducer;

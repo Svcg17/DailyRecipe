@@ -9,7 +9,7 @@ import { withRouter, Link } from "react-router-dom";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 
 // action
-import { userForgetPassword } from "../../../store/actions";
+// import { userForgetPassword } from "../../../store/actions";
 
 // import images
 import logoSm from "../../../assets/images/logo-sm.png";
@@ -25,7 +25,7 @@ class ForgetPasswordPage extends Component {
 
   // handleValidSubmit
   handleValidSubmit(event, values) {
-    this.props.userForgetPassword(values, this.props.history);
+    // this.props.userForgetPassword(values, this.props.history);
   }
 
   render() {
@@ -130,6 +130,7 @@ const mapStatetoProps = state => {
   return { forgetError, forgetSuccessMsg };
 };
 
-export default withRouter(
-  connect(mapStatetoProps, { userForgetPassword })(ForgetPasswordPage)
-);
+// export default withRouter(
+  // connect(mapStatetoProps, { userForgetPassword })(ForgetPasswordPage)
+// );
+export default ForgetPasswordPage;

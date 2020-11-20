@@ -6,7 +6,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 
 import Loader from "../../../components/Loader";
 // action
-import { registerUser, loginUser } from "../../../store/actions";
+// import { registerUser, loginUser } from "../../../store/actions";
 
 // Redux
 import { connect } from "react-redux";
@@ -163,4 +163,5 @@ const mapStatetoProps = state => {
   return { user, registrationError, loading };
 };
 
-export default connect(mapStatetoProps, { registerUser, loginUser })(Register);
+// export default connect(mapStatetoProps, { registerUser, loginUser })(Register);
+export default Register;

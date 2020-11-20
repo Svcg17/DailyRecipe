@@ -21,9 +21,9 @@ const SidebarContent = props => {
         </li>
 
         <li>
-          <Link to="/admin/calendar" className=" waves-effect">
+          <Link to="/admin/weekly-selection" className=" waves-effect">
             <i className="ti-calendar"></i>
-            <span>Calendar</span>
+            <span>Weekly Selection</span>
           </Link>
         </li>
 

@@ -4,7 +4,8 @@ import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan,
 import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
 import {
   registerUser, login,
-  logout, verifyToken, registerAdmin, adminLogin,
+  logout, verifyToken, registerAdmin, adminLogin, findAdmin,
+  putAdmin
 } from '../controllers/AuthController';
 import {
   getProfile, getUserPlan,
@@ -23,6 +24,8 @@ router.post('/api/auth/register', registerUser);
 router.post('/api/auth/adminLogin', adminLogin);
 router.post('/api/auth/login', login);
 router.get('/api/auth/logout', logout);
+router.get('/api/auth/admin/:id', findAdmin);
+router.put('/api/auth/admin/:id', putAdmin);
 
 // menu routes
 router.put('/api/menu/:id', putRecipe);

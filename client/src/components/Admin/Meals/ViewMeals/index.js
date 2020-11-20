@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,8 @@ import Loading from '../../Loading';
 import AdminContext from '../../../../context/AdminContext';
 
 const ViewCustomers = ({ history }) => {
-    // const { admin } = useContext(AdminContext);
+    const { admin } = useContext(AdminContext);
+    // const cookie = new Cookies();
     const [meals, setMeals] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/menu`).then(res => setMeals(res.data));

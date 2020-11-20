@@ -11,7 +11,7 @@ import ForgetPwd from "../components/Admin/Authentication/FogetPassword";
 
 import Dashboard from "../components/Admin/Dashboard";
 
-import Calendar from "../components/Admin/Apps/Calendar/index";
+import WeeklySelection from "../components/Admin/Apps/WeeklySelection/index";
 
 import EmailInbox from "../components/Admin/Apps/Email/inbox";
 import EmailRead from "../components/Admin/Apps/Email/read";
@@ -112,8 +112,8 @@ const authProtectedRoutes = [
   // profile
   { path: "/admin/profile", component: Profile },
 
-  // Calendar
-  { path: "/admin/calendar", component: Calendar },
+  // WeeklySelection
+  { path: "/admin/weekly-selection", component: WeeklySelection },
 
   // Email & Email Templates
   { path: "/admin/email-inbox", component: EmailInbox },

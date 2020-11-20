@@ -114,7 +114,7 @@ export async function login(req, res) {
  */
 export async function logout(req, res) {
   const token = req.cookies.token;
-  if (!token) return res.status(401).json({ error: 'No user is connected' });
+  // if (!token) return res.status(401).json({ error: 'No user is connected' });
 
   res.cookie('token', '', { expires: new Date(Date.now()), sameSite: true });
   res.status(200).send('Logged out successfully');
@@ -127,9 +127,38 @@ export async function adminLogin(req, res) {
     if (err) return res.status(400).json({ error: 'Failed to log in' });
     if (user) {
       bcrypt.compare(req.body.password, user.password, (err, result) => {
-        if (err || !result) return res.status(400).json({ error: 'Wrong password' });
+        if (err || !result) return res.status(400).json({ error: result });
         generateToken({ id: user.id }, res);
       });
     } else return res.status(400).json({ error: 'Email not found' });
   });
+}
+
+export function findAdmin(req, res) {
+  const adminId = req.params.id;
+  Admin.findById(adminId, (err, admin) => {
+    if (err) return res.status(404).json({ error: err });
+    res.status(200).json({ name: admin.name, email: admin.email });
+  });
+}
+
+export async function putAdmin(req, res) {
+  try {
+    // let newBody;
+    // if (req.body.name) newBody.name = await req.body.name;
+    // if (req.body.email) newBody.email = await req.body.email;
+    // if (req.body.password) {
+    //   await bcrypt.genSalt(10, (err, salt) => {
+    //     bcrypt.hash(req.body.password, salt, async (err, hash) => {
+    //       if (err) return res.status(400).json({ error: 'Could not encrypt password' });
+    //       else newBody.password = await hash;
+    //     });
+    //   });
+    // }
+    const updateAdmin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    await updateAdmin.save();
+    await res.status(200).send({ updateAdmin: updateAdmin });
+  } catch (err) {
+    res.status(400).send({ error: err });
+  }
 }
