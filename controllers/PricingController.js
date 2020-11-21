@@ -93,3 +93,20 @@ export function storeMenu(req, res) {
     res.status(200).json('Plans now have a menu');
   });
 }
+
+// get recipes based on plan
+export async function getRecipesFromPlan(req, res) {
+  Plan.findById(req.params.id, async (err, plan) => {
+    if (err) return res.status(404).json({ error: err });
+    const recipes = await plan.menu;
+    await Recipes
+      .find({ _id: recipes })
+      .exec((err, rs) => {
+        if (err) return res.status(400).json({ error: err });
+        res.status(200).json(rs);
+      });
+    // res.status(200).json(ans);
+  });
+}
+
+

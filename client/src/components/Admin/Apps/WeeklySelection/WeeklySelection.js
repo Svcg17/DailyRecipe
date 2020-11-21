@@ -4,17 +4,20 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import Calendar from 'react-calendar';
 import axios from 'axios';
-
 import 'react-calendar/dist/Calendar.css';
+
+import RenderRecipes from './components/RenderRecipes';
 
 import styles from './WeeklySelection.module.scss';
 
-const WeeklySelection = () => {
+const WeeklySelection = ({ history }) => {
     const [value, onChange] = useState(new Date());
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [plans, setPlans] = useState(null);
     const [recipes, setRecipes] = useState(null);
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [weekly, setWeekly] = useState(null);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/plans`).then(res => setPlans(res.data));
@@ -32,6 +35,16 @@ const WeeklySelection = () => {
         setEndDate(last);
     }, [value]);
 
+    const handlePlan = e => {
+      const planId = e.currentTarget.id;
+      axios.get(`${process.env.REACT_APP_HOST}/api/plan/${planId}`).then(res => {
+        setRecipes(x => [...res.data]);
+      });
+      setSelectedPlan(x => planId);
+
+      console.log('selected plan', planId);
+    };
+
     return (
     <div className={styles.calendar}>
       <Calendar 
@@ -39,32 +52,32 @@ const WeeklySelection = () => {
         value={value}
         minDate={new Date()}
         calendarType="US"
+        className={styles.col1}
       />
-      <div>
+      <div className={styles.col2}>
           <Row>
-            <Col xs={6}>Start Date</Col>
-            <Col xs={6}>{startDate ? `${startDate.getMonth()}-${startDate.getDate()}-${startDate.getFullYear()}` : null}</Col>
+            <Col xs={2}>Start Date</Col>
+            <Col xs={10}>{startDate ? `${startDate.getMonth()}-${startDate.getDate()}-${startDate.getFullYear()}` : null}</Col>
           </Row>
           <Row>
-            <Col xs={6}>End Date</Col>
-            <Col xs={6}>{endDate ? `${startDate.getMonth()}-${endDate.getDate()}-${startDate.getFullYear()}`: null}</Col>
+            <Col xs={2}>End Date</Col>
+            <Col xs={10}>{endDate ? `${startDate.getMonth()}-${endDate.getDate()}-${startDate.getFullYear()}`: null}</Col>
           </Row>
           <Row>
-            <Col>Plans</Col>
-            <Col>
+            <Col xs={2}>Plans</Col>
+            <Col xs={10}>
+              <div className="btn-group" role="group" aria-label="Basic example">
+
                 {plans ? plans.map(plan => {
-                    return <option>{plan.name}</option>
+                    return <button type="button" id={plan._id} name={plan._id} className="btn btn-light" onClick={handlePlan}>{plan.name}</button>
                 }) : null}
+              </div>
             </Col>
           </Row>
           <Row>
-            <Col>Recipes</Col>
-            <Col>
-                <select>
-                    {/* {recipes ? recipes.map(recipe => {
-                        return <option>{recipe.name}</option>
-                    }) : null} */}
-                </select>
+            <Col xs={2}>Recipes</Col>
+            <Col xs={10}>
+              <RenderRecipes history={history} recipes={recipes} setRecipes={setRecipes} />
             </Col>
           </Row>
       </div>

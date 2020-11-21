@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe } from '../controllers/MenuController';
-import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, storeMenu } from '../controllers/PricingController';
+import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, getRecipesFromPlan, storeMenu } from '../controllers/PricingController';
 import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
 import {
   registerUser, login,
@@ -12,6 +12,7 @@ import {
   choosePlan, getPlanInstance, setDeliveryInfo,
   getSelectedRecipes, selectRecipe,
 } from '../controllers/UserController';
+import { postWeeklySelection, getAllWeeklySelections } from '../controllers/WeeklySelectionController';
 
 const router = Router();
 
@@ -39,6 +40,7 @@ router.get('/api/plan/:diet/:servings', getRecipesFromDietAndServings);
 router.put('/api/plan/menu', storeMenu);
 router.put('/api/plan/:id', putPlan);
 router.delete('/api/plan/:id', deletePlan);
+router.get('/api/plan/:id', getRecipesFromPlan);
 router.post('/api/plans', postPlan);
 router.get('/api/plans', getPlans);
 
@@ -47,6 +49,10 @@ router.put('/api/diet/:id', putDiet);
 router.delete('/api/diet/:id', deleteDiet);
 router.post('/api/diet', postDiet);
 router.get('/api/diet', getAllDiet);
+
+// weekly selection routes
+router.post('/api/weekly', postWeeklySelection);
+router.get('/api/weekly', getAllWeeklySelections);
 
 // user routes
 router.use('/users', verifyToken);
