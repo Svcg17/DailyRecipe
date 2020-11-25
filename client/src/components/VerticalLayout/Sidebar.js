@@ -28,6 +28,13 @@ const SidebarContent = props => {
         </li>
 
         <li>
+          <Link to="/admin/orders" className=" waves-effect">
+            <i className="mdi mdi-note-outline"></i>
+            <span>Orders</span>
+          </Link>
+        </li>
+
+        {/* <li>
           <Link to="/admin/#" className="has-arrow waves-effect">
             <i className="ti-email"></i>
             <span>Email</span>
@@ -43,7 +50,7 @@ const SidebarContent = props => {
               <Link to="/admin/email-compose">Email Compose</Link>
             </li>
           </ul>
-        </li>
+        </li> */}
 
         <li className="menu-title">Components</li>
         <li>
@@ -124,7 +131,7 @@ const SidebarContent = props => {
             <li>
               <Link to="/admin/plans">Plans</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="form-elements">Form Elements</Link>
             </li>
             <li>
@@ -150,10 +157,33 @@ const SidebarContent = props => {
             </li>
             <li>
               <Link to="form-mask">Form Mask</Link>
-            </li>
+            </li> */}
           </ul>
         </li>
 
+        <li>
+          <Link to="/admin/#" className="has-arrow waves-effect">
+            <i className="mdi mdi-human"></i>
+            <span>Users</span>
+          </Link>
+          <ul className="sub-menu" aria-expanded="false">
+            <li>
+              <Link to="charts-chartist">View Users</Link>
+            </li>
+            <li>
+              <Link to="charts-sparkline">Articles</Link>
+            </li>
+            <li>
+              <Link to="e-charts">Users' Reviews</Link>
+            </li>
+            <li>
+              <Link to="charts-chartjs">Users' Tips</Link>
+            </li>
+            <li>
+              <Link to="apex-chart">Users' Comments</Link>
+            </li>
+          </ul>
+        </li>
 
         <li>
           <Link to="/admin/#" className="waves-effect">
@@ -190,30 +220,6 @@ const SidebarContent = props => {
             </li>
             <li>
               <Link to="form-mask">Form Mask</Link>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <Link to="/admin/#" className="has-arrow waves-effect">
-            <i className="ti-pie-chart"></i>
-            <span>Charts</span>
-          </Link>
-          <ul className="sub-menu" aria-expanded="false">
-            <li>
-              <Link to="charts-chartist">Chartist Chart</Link>
-            </li>
-            <li>
-              <Link to="e-charts">E Chart</Link>
-            </li>
-            <li>
-              <Link to="charts-chartjs">Chartjs Chart</Link>
-            </li>
-            <li>
-              <Link to="apex-chart">Apex Chart</Link>
-            </li>
-            <li>
-              <Link to="charts-sparkline">Sparkline Chart</Link>
             </li>
           </ul>
         </li>

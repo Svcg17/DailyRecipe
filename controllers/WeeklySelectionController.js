@@ -48,13 +48,10 @@ export function getAllWeeklySelections(req, res) {
  * Retrieves the weeklySelection that has its id equal to the one given in
  * the request.
  */
-export function getweeklySelection(req, res) {
-  let weeklySelectionId = req.params.id;
-  if (weeklySelectionId[0] === ':') weeklySelectionId = weeklySelectionId.slice(1);
-
-  weeklySelection.findById(weeklySelectionId, (err, weeklySelection) => {
-    if (err || !weeklySelection) return res.status(404).json({ error: 'weeklySelection not found' });
-    res.status(200).json(weeklySelection);
+export function getweeklySelectionByDate(req, res) {
+  WeeklySelection.find({ startDate: req.params.startDate, endDate: req.params.endDate }, (err, weekly) => {
+    if (err) return res.status(404).json({ error: 'No plans for the week yet' });
+    res.status(200).json(weekly);
   });
 }
 
@@ -64,3 +61,32 @@ export function deleteweeklySelection(req, res) {
     res.status(200).json({ message: `successfully deleted weeklySelection ${req.params.id}` });
   });
 }
+
+export async function updateWeeklyCollection(req, res) {
+  let weekly = req.body;
+  try {
+    for(let i=0;i<weekly.length;i++){
+      if (weekly[i]._id){
+        // put
+        try {
+          const updateWeeklyPlan = await WeeklySelection.findByIdAndUpdate(weekly[i]._id, weekly[i], { new: true });
+          await updateWeeklyPlan.save();
+        } catch (err) {
+          console.log('asdf', err);
+        }
+      } else {
+        // post
+        try {
+          const newWeeklyPlan = await new WeeklySelection(weekly[i]);
+          await newWeeklyPlan.save();
+        } catch (err) {
+          console.log('erro', err);
+        }
+      }
+    }
+    res.status(200).send({ message: 'successfully updated weekly collection' });
+  } catch (err) {
+    res.status(400).send({ error: err });
+  }
+}
+

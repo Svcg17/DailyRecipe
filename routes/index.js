@@ -12,7 +12,12 @@ import {
   choosePlan, getPlanInstance, setDeliveryInfo,
   getSelectedRecipes, selectRecipe,
 } from '../controllers/UserController';
-import { postWeeklySelection, getAllWeeklySelections } from '../controllers/WeeklySelectionController';
+import { 
+  postWeeklySelection, 
+  getAllWeeklySelections,
+  getweeklySelectionByDate,
+  updateWeeklyCollection
+} from '../controllers/WeeklySelectionController';
 
 const router = Router();
 
@@ -53,6 +58,8 @@ router.get('/api/diet', getAllDiet);
 // weekly selection routes
 router.post('/api/weekly', postWeeklySelection);
 router.get('/api/weekly', getAllWeeklySelections);
+router.get('/api/weekly/date/:startDate/:endDate', getweeklySelectionByDate);
+router.put('/api/weekly', updateWeeklyCollection);
 
 // user routes
 router.use('/users', verifyToken);
