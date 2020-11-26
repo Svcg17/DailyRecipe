@@ -32,6 +32,13 @@ import CreateDiet  from "../components/Admin/Plans/CreateDiet";
 // Plans
 import Plans from '../components/Admin/Plans/Plans';
 
+// Users
+import User from '../components/Admin/User';
+import Article from '../components/Admin/Article';
+import Review from '../components/Admin/Review';
+import Tip from '../components/Admin/Tip';
+import Comment from '../components/Admin/Comment';
+
 import UiSweetAlert from "../components/Admin/UI/UiSweetAlert";
 import UiAlerts from "../components/Admin/UI/Alerts";
 import UiButtons from "../components/Admin/UI/Buttons";
@@ -133,6 +140,11 @@ const authProtectedRoutes = [
   { path: "/admin/meals", component: ViewMeals },
   { path: "/admin/diet", component: CreateDiet },
   { path: "/admin/plans", component: Plans },
+  { path: "/admin/users", component: User },
+  { path: "/admin/articles", component: Article },
+  { path: "/admin/reviews", component: Review },
+  { path: "/admin/tips", component: Tip },
+  { path: "/admin/comments", component: Comment },
 
   { path: "/admin/ui-buttons", component: UiButtons },
   { path: "/admin/ui-cards", component: UiCards },

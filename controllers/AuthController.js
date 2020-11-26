@@ -50,7 +50,7 @@ export async function registerUser(req, res) {
 
   User.findOne({ email: req.body.email }, async (err, user) => {
     if (user) return res.status(400).json({ error: 'Email already exists' });
-    const newUser = new User({ name: req.body.name, email: req.body.email });
+    const newUser = new User(req.body);
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(req.body.password, salt, (err, hash) => {

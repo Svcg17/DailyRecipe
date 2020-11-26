@@ -16,11 +16,9 @@ const UserSchema = new Schema(
       required: [true, 'Password is required'],
       minlength: 8,
     },
+    address: String,
     planInstance: { type: Schema.Types.ObjectId, ref: 'PlanInstance' },
     address: String,
-    city: String,
-    state: String,
-    zip: Number,
     phone: {
       type: String,
       validate: {
@@ -30,6 +28,11 @@ const UserSchema = new Schema(
         message: 'Must be a valid phone number',
       }
     },
+    points: Number,
+    paymentMethods: [{ type: String, enum: ['Paypal', 'Credit Card', 'COD'] }],
+    savedRecipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+    // savedArticles: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+    // flaggedArticles: [{ type: Schema.Types.ObjectId, ref: 'Article' }]
   }, {
     timestamps: true,
   },

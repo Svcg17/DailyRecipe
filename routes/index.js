@@ -11,6 +11,7 @@ import {
   getProfile, getUserPlan,
   choosePlan, getPlanInstance, setDeliveryInfo,
   getSelectedRecipes, selectRecipe,
+  getUsers
 } from '../controllers/UserController';
 import { 
   postWeeklySelection, 
@@ -60,6 +61,9 @@ router.post('/api/weekly', postWeeklySelection);
 router.get('/api/weekly', getAllWeeklySelections);
 router.get('/api/weekly/date/:startDate/:endDate', getweeklySelectionByDate);
 router.put('/api/weekly', updateWeeklyCollection);
+
+// api user routes
+router.get('/api/users', getUsers);
 
 // user routes
 router.use('/users', verifyToken);

@@ -128,3 +128,11 @@ export function selectRecipe(req, res) {
     return res.status(200).json(planInstance);
   });
 }
+
+
+export function getUsers(req, res) {
+  User.find({}, (err, users) => {
+    if (err) return res.status(400).send({ error: err });
+    res.status(200).send(users);
+  });
+}

@@ -168,19 +168,19 @@ const SidebarContent = props => {
           </Link>
           <ul className="sub-menu" aria-expanded="false">
             <li>
-              <Link to="charts-chartist">View Users</Link>
+              <Link to="/admin/users">View Users</Link>
             </li>
             <li>
-              <Link to="charts-sparkline">Articles</Link>
+              <Link to="/admin/articles">Articles</Link>
             </li>
             <li>
-              <Link to="e-charts">Users' Reviews</Link>
+              <Link to="/admin/reviews">Users' Reviews</Link>
             </li>
             <li>
-              <Link to="charts-chartjs">Users' Tips</Link>
+              <Link to="/admin/tips">Users' Tips</Link>
             </li>
             <li>
-              <Link to="apex-chart">Users' Comments</Link>
+              <Link to="/admin/comments">Users' Comments</Link>
             </li>
           </ul>
         </li>
