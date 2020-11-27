@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
 import Loading from '../../Loading';
 import Ingredient from '../Ingredient';
@@ -16,17 +17,23 @@ const EditMeal = ({ history }) => {
     const [ingredientCount, setIngredientCount] = useState(0);
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
     const [renderIngredients, setRenderIngredients] = useState([]);
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
             setMeal(res.data);
             let renderAddIngredients = renderIngredients;
-            if(res.data.ingredients){
+            if (res.data.ingredients){
                 res.data.ingredients.map((ingredient, index) => {
                     renderAddIngredients.push(<Ingredient key={index} index={index} history={history} meal={res.data} setMeal={setMeal} deleteAtIndex={deleteAtIndex} setDeleteAtIndex={setDeleteAtIndex} />);
                 });
                 setIngredientCount(res.data.ingredients.length);
                 setRenderIngredients(renderAddIngredients);
+            }
+            if (res.data.instructions) {
+                const raw = JSON.parse(res.data.instructions);
+                const contentState = convertFromRaw(raw);
+                setEditorState(EditorState.createWithContent(contentState));
             }
             // setIngredientCount(res.data.ingredients.length);
         });
@@ -50,11 +57,18 @@ const EditMeal = ({ history }) => {
         setIngredientCount(ingredientCount + 1);
         setRenderIngredients(x => x.concat(tempArr));
     };
+
     const handleDelete = () => {
         axios.delete(`${process.env.REACT_APP_HOST}/api/menu/${id}`).then(res => {
             history.push('/admin/meals');
         })
     };
+
+    const handleEditorState = newState => {
+        console.log('editor', (newState));
+        setEditorState(x => (newState));
+    };
+
     // let renderAddIngredients = [];
     // for(let i=0;i<ingredientCount;i++){
     //     console.log(i, meal.ingredients[i], 'check');
@@ -90,6 +104,8 @@ const EditMeal = ({ history }) => {
                                 if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
                             });
                         }
+                        const contentState = editorState.getCurrentContent();
+                        newValues.instructions = JSON.stringify(convertToRaw(contentState));
                         console.log(JSON.stringify(newValues, null, 2));
                         axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
                             if(res.status != 200) return setStatus(
@@ -171,6 +187,9 @@ const EditMeal = ({ history }) => {
                                                                 <label htmlFor="instructions" className="col-lg-3 col-form-label">Instructions</label>
                                                                 <div className="col-lg-9">
                                                                     <Editor
+                                                                        name="instructions"
+                                                                        editorState={editorState}
+                                                                        onEditorStateChange={handleEditorState}
                                                                         toolbarClassName="toolbarClassName"
                                                                         wrapperClassName="wrapperClassName"
                                                                         editorClassName="editorClassName"

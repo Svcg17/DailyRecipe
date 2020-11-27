@@ -4,6 +4,9 @@ import axios from 'axios';
 import { Row, Col, Card, CardBody, Alert } from "reactstrap";
 import { Formik, Form, Field } from 'formik';
 import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw, EditorState } from 'draft-js';
+// import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
 
 import Ingredient from '../Ingredient';
 
@@ -14,6 +17,7 @@ const CreateMeal = ({ history }) => {
     const [ingredientCount, setIngredientCount] = useState(0);
     const [deleteAtIndex, setDeleteAtIndex] = useState([]);
     const [renderIngredients, setRenderIngredients] = useState([]);
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     const addIngredient = () => {
         // setIngredientCount(ingredientCount + 1);
@@ -27,8 +31,23 @@ const CreateMeal = ({ history }) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
             setDiet(res.data);
+            if (res.data.instructions) {
+                setEditorState(x => res.data.instructions.getCurrentContent().getPlainText());
+            }
         });
+        // const html = '';
+        // const contentBlock = htmlToDraft(html);
+        // if (contentBlock) {
+        //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        //     console.log(EditorState.createWithContent(contentState));
+        //     setEditorState(x => EditorState.createWithContent(contentState));
+        // }
     }, []);
+
+    const handleEditorState = newState => {
+        console.log('editor', (newState));
+        setEditorState(x => (newState));
+    };
 
     return (
         <div>
@@ -56,6 +75,8 @@ const CreateMeal = ({ history }) => {
                                 if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
                             });
                         }
+                        const contentState = editorState.getCurrentContent();
+                        newValues.instructions = JSON.stringify(convertToRaw(contentState));
                         console.log(JSON.stringify(values.meal.title, null, 2));
                         console.log(newValues);
                         axios.post(`${process.env.REACT_APP_HOST}/api/menu`, newValues).then(res => {
@@ -140,6 +161,9 @@ const CreateMeal = ({ history }) => {
                                                                 <label htmlFor="instructions" className="col-lg-3 col-form-label">Instructions</label>
                                                                 <div className="col-lg-9">
                                                                     <Editor
+                                                                        name="instructions"
+                                                                        editorState={editorState}
+                                                                        onEditorStateChange={handleEditorState}
                                                                         toolbarClassName="toolbarClassName"
                                                                         wrapperClassName="wrapperClassName"
                                                                         editorClassName="editorClassName"

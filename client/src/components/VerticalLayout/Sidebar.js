@@ -10,15 +10,15 @@ const SidebarContent = props => {
       <ul className="metismenu list-unstyled" id="side-menu">
         <li className="menu-title">Main</li>
 
-        <li>
-          <Link to="/admin/dashboard" className="waves-effect">
+        {/* <li>
+          <Link to="/admin" className="waves-effect">
             <i className="ti-home"></i>
             <span className="badge badge-pill badge-primary float-right">
               2
             </span>
             <span>Dashboard</span>
           </Link>
-        </li>
+        </li> */}
 
         <li>
           <Link to="/admin/weekly-selection" className=" waves-effect">
@@ -171,9 +171,6 @@ const SidebarContent = props => {
               <Link to="/admin/users">View Users</Link>
             </li>
             <li>
-              <Link to="/admin/articles">Articles</Link>
-            </li>
-            <li>
               <Link to="/admin/reviews">Users' Reviews</Link>
             </li>
             <li>
@@ -181,6 +178,24 @@ const SidebarContent = props => {
             </li>
             <li>
               <Link to="/admin/comments">Users' Comments</Link>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <Link to="/admin/#" className="has-arrow waves-effect">
+            <i className="mdi mdi-file-document-outline" />
+            <span>Publish</span>
+          </Link>
+          <ul className="sub-menu" aria-expanded="false">
+            <li>
+              <Link to="/admin/articles">Articles</Link>
+            </li>
+            <li>
+              <Link to="/admin/create-article">Create Article</Link>
+            </li>
+            <li>
+              <Link to="/admin/policy-and-terms">Update Policy and Terms of Service</Link>
             </li>
           </ul>
         </li>

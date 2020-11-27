@@ -129,10 +129,29 @@ export function selectRecipe(req, res) {
   });
 }
 
-
+// get all users (admin side)
 export function getUsers(req, res) {
   User.find({}, (err, users) => {
     if (err) return res.status(400).send({ error: err });
     res.status(200).send(users);
+  });
+}
+
+// put user (admin side)
+export async function putUser(req, res) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    await updatedUser.save();
+    await res.status(200).send(updatedUser);
+  } catch (err) {
+    res.status(400).send({ error: err });
+  }
+}
+
+// delete user (admin side)
+export function deleteUser(req, res) {
+  User.deleteOne({ _id: req.params.id }, err => {
+    if (err) return res.status(404).send({ error: err });
+    res.status(200).send({ message: `successfully deleted user ${req.params.id}` });
   });
 }

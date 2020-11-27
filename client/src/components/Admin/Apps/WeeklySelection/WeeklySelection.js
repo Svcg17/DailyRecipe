@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import 'react-calendar/dist/Calendar.css';
 
+import Loading from '../../Loading';
 import RenderRecipes from './components/RenderRecipes';
 
 import styles from './WeeklySelection.module.scss';
@@ -198,7 +199,7 @@ const WeeklySelection = ({ history }) => {
                   </div>
                 </Form>
           )}
-          </Formik> : null
+          </Formik> : <Loading />
         }
       </div>
   );
