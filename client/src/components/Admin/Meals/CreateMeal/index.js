@@ -31,7 +31,7 @@ const CreateMeal = ({ history }) => {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_HOST}/api/diet`).then(res => {
             setDiet(res.data);
-            if (res.data.instructions) {
+            if (res.data.instructions && res.data.instructions.length) {
                 setEditorState(x => res.data.instructions.getCurrentContent().getPlainText());
             }
         });

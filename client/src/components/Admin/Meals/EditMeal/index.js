@@ -30,7 +30,7 @@ const EditMeal = ({ history }) => {
                 setIngredientCount(res.data.ingredients.length);
                 setRenderIngredients(renderAddIngredients);
             }
-            if (res.data.instructions) {
+            if (res.data.instructions && res.data.instructions.length) {
                 const raw = JSON.parse(res.data.instructions);
                 const contentState = convertFromRaw(raw);
                 setEditorState(EditorState.createWithContent(contentState));

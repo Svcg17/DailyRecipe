@@ -39,6 +39,9 @@ import Review from '../components/Admin/Review';
 import Tip from '../components/Admin/Tip';
 import Comment from '../components/Admin/Comment';
 
+// Publish
+import Policy from '../components/Admin/Policy';
+
 import UiSweetAlert from "../components/Admin/UI/UiSweetAlert";
 import UiAlerts from "../components/Admin/UI/Alerts";
 import UiButtons from "../components/Admin/UI/Buttons";
@@ -145,6 +148,7 @@ const authProtectedRoutes = [
   { path: "/admin/reviews", component: Review },
   { path: "/admin/tips", component: Tip },
   { path: "/admin/comments", component: Comment },
+  { path: "/admin/policy-and-terms", component: Policy },
 
   { path: "/admin/ui-buttons", component: UiButtons },
   { path: "/admin/ui-cards", component: UiCards },

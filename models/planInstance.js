@@ -11,6 +11,7 @@ const PlanInstanceSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Recipe',
     }],
+    deliverySchedule: Date
   }, {
     timestamps: true,
   },

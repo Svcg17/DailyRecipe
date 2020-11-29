@@ -21,6 +21,10 @@ import {
   getweeklySelectionByDate,
   updateWeeklyCollection
 } from '../controllers/WeeklySelectionController';
+import {
+  updatePolicy,
+  getPolicy
+} from '../controllers/AdminController';
 
 const router = Router();
 
@@ -63,6 +67,10 @@ router.post('/api/weekly', postWeeklySelection);
 router.get('/api/weekly', getAllWeeklySelections);
 router.get('/api/weekly/date/:startDate/:endDate', getweeklySelectionByDate);
 router.put('/api/weekly', updateWeeklyCollection);
+
+// policy routes
+router.put('/api/policy', updatePolicy);
+router.get('/api/policy', getPolicy);
 
 // api user routes
 // router.use('/api/users', verifyToken);
