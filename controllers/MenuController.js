@@ -1,10 +1,11 @@
 import Recipe from '../models/recipe';
+import Image from '../models/image';
 
 /**
  * Middleware function for POST /api/menu
  * Adds new recipe
  */
-export async function postRecipe(req, res) {
+export async function postRecipe(req, res, next) {
   const newRecipe = new Recipe({ 
     title: req.body.title, 
     ingredients: req.body.ingredients, 
@@ -22,7 +23,7 @@ export async function postRecipe(req, res) {
     if(err) return res.status(400).json({ error: err.message });
     return res.status(200).json({ message: 'success' });
   });
-}
+};
 
 /**
  * Middleware function for PUT /api/menu/:id
@@ -70,4 +71,15 @@ export function deleteRecipe(req, res) {
     if(err) return res.status(404).json({ error: 'Recipe not found' });
     res.status(200).json({ message: `successfully deleted recipe ${req.params.id}` });
   });
+}
+
+export async function uploadImages(req, res, err) {
+  try {
+    const newImage = new Image({ path: req.file.path });
+    await newImage.save(err => {
+      res.status(201).send(req.file.path);
+    });
+  } catch (err) {
+    res.status(500).send({ error: err });
+  }
 }

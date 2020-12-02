@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import styles from '../meal.module.scss';
+
+const imageUrl = 'http://localhost:5000/';
 
 const Ingredient = ({ index, history, meal, setMeal, deleteAtIndex, setDeleteAtIndex }) => {
     const [checkbx, setCheckbx] = useState(true);
+    const [localMeal, setLocalMeal] = useState(meal);
     useEffect(() => {
         if(meal) {
             let newObj = {};
@@ -16,26 +20,32 @@ const Ingredient = ({ index, history, meal, setMeal, deleteAtIndex, setDeleteAtI
                 let newState = meal;
                 newObj.inBox = checkbx;
                 newState.ingredients.push(newObj);
+                setLocalMeal({...newState});
                 setMeal({...newState});
             }
         }
+        console.log('init', typeof localMeal.ingredients[0].image);
     }, []);
 
 
 
     const handleIngredient = e => {
         const param = e.currentTarget.id.split(' ')[0];
-        let newState = meal;
-        if(newState && index < meal.ingredients.length) {
+        let newState = localMeal;
+        if(newState && index < newState.ingredients.length) {
             // update
             if(param === 'inBox') {
                 console.log('inBox', newState.ingredients[index][param]);
                 newState.ingredients[index][param] = !newState.ingredients[index][param];
                 console.log('new state', newState.ingredients[index][param]);
                 setCheckbx(!checkbx);
+            } else if (param === 'image') {
+                // console.log('image', e.currentTarget.files[0]);
+                newState.ingredients[index][param] = e.currentTarget.files[0];
             } else {
                 newState.ingredients[index][param] = e.currentTarget.value;
             }
+            setLocalMeal({...newState});
             setMeal({...newState});
         } else if(newState) {
             // insert put
@@ -43,10 +53,15 @@ const Ingredient = ({ index, history, meal, setMeal, deleteAtIndex, setDeleteAtI
             if(param === 'inBox') {
                 newObj[param] = !checkbx;
                 setCheckbx(!checkbx);
+            } else if (param === 'image') {
+                // console.log('image', e.currentTarget.files[0]);
+                newObj[param] = e.currentTarget.files[0];
+                newState.ingredients.push(newObj);
             } else {
                 newObj[param] = e.currentTarget.value; 
                 newState.ingredients.push(newObj);
             }
+            setLocalMeal({...newState});
             setMeal({...newState});
         } else {
             // insert post
@@ -55,10 +70,15 @@ const Ingredient = ({ index, history, meal, setMeal, deleteAtIndex, setDeleteAtI
             if(param === 'inBox') {
                 newObj[param] = !checkbx;
                 setCheckbx(!checkbx);
+            } else if (param === 'image') {
+                // console.log('image', e.currentTarget.files[0]);
+                newObj[param] = e.currentTarget.files[0];
+                newState.ingredients.push(newObj);
             } else {
                 newObj[param] = e.currentTarget.value; 
                 newState.ingredients.push(newObj);
             }
+            setLocalMeal({...newState});
             setMeal({...newState});
         }
     };
@@ -87,7 +107,9 @@ const Ingredient = ({ index, history, meal, setMeal, deleteAtIndex, setDeleteAtI
                     <div className="form-group row">
                         <label htmlFor="image" className="col-lg-5 col-form-label">Image</label>
                         <div className="col-lg-7">
-                            <input onChange={handleIngredient} name="image" id={`image ${index}`} className="form-control" type="text" defaultValue={meal && meal.ingredients[index] ? meal.ingredients[index].image : ""} />
+                            <input type="file" onChange={handleIngredient} name="image" id={`image ${index}`} className="form-control" /> 
+                            { localMeal.ingredients[index] && typeof localMeal.ingredients[index].image === 'string' ? <img className={styles.uploaded} src={imageUrl + localMeal.ingredients[index].image.substring(7)} /> : null }
+                            {/* defaultValue={meal && meal.ingredients[index] ? meal.ingredients[index].image : ""} /> */}
                         </div>
                     </div>
                     <div className="form-group row">

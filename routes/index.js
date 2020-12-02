@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe } from '../controllers/MenuController';
+import upload from './middleware/multer';
+import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe, uploadImages } from '../controllers/MenuController';
 import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, getRecipesFromPlan, storeMenu } from '../controllers/PricingController';
 import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
 import {
@@ -30,6 +31,9 @@ const router = Router();
 
 // home route
 // router.get('/', (req, res) => res.json({ message: 'This is Daily Recipe!!!' }));
+
+// image upload route
+router.post('/upload', upload.single('file'), uploadImages);
 
 // auth routes
 router.post('/api/auth/adminRegister', registerAdmin);

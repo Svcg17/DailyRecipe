@@ -29,10 +29,11 @@ const app = express();
 // app.use(cors({credentials: true, allowedHeaders: ['Content-Type', 'Authorization', 'Accept'] }));
 app.use(cors());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '3mb' }));
+app.use(bodyParser.json({ limit: '3mb' }));
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static('public'));
 
 // Stripe setup
 const stripe = new Stripe(stripePrivKey);

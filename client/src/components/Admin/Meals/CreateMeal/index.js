@@ -54,46 +54,66 @@ const CreateMeal = ({ history }) => {
                 <Formik
                     initialValues={{meal}}
                     onSubmit={(values, { setSubmitting }) => {
-                        alert(JSON.stringify(values.meal, null, 2));
-                        const newValues = {
-                            title: values.meal.title, 
-                            // ingredients: values.meal.ingredients, 
-                            // instructions: values.meal.instructions, 
-                            duration: values.meal.duration, 
-                            diet: values.meal.diet, 
-                            servings: values.meal.servings, 
-                            calPerServing: values.meal.calPerServing, 
-                            isFeatured: values.meal.isFeatured, 
-                            season: values.meal.season, 
-                            cuisine: values.meal.cuisine, 
-                            nutrition: values.meal.nutrition, 
-                            allergens: values.meal.allergens
+                        const asyncSubmit = async () => {
+                            alert(JSON.stringify(values.meal, null, 2));
+                            const newValues = {
+                                title: values.meal.title, 
+                                ingredients: values.meal.ingredients, 
+                                // instructions: values.meal.instructions, 
+                                duration: values.meal.duration, 
+                                diet: values.meal.diet, 
+                                servings: values.meal.servings, 
+                                calPerServing: values.meal.calPerServing, 
+                                isFeatured: values.meal.isFeatured, 
+                                season: values.meal.season, 
+                                cuisine: values.meal.cuisine, 
+                                nutrition: values.meal.nutrition, 
+                                allergens: values.meal.allergens
+                            };
+                            newValues.ingredients = [];
+                            if(meal.ingredients) {
+                                await meal.ingredients.map((m, ind) => {
+                                    if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
+                                });
+                            }
+                            for(let i=0;i<newValues.ingredients.length;i++){
+                                if (newValues.ingredients[i].image) {
+                                    let fd = new FormData();
+                                    fd.append('file', newValues.ingredients[i].image);
+                                    console.log('fd', fd.get('file'));
+                                    const config = {
+                                        headers: {
+                                            'content-type': 'multipart/form-data'
+                                        }
+                                    }
+                                    await axios.post(`${process.env.REACT_APP_HOST}/upload`, fd, config).then(res => {
+                                        newValues.ingredients[i].image = res.data;
+                                    });
+                                }
+                            }
+                            console.log('ingredients after', newValues);
+    
+                            const contentState = editorState.getCurrentContent();
+                            newValues.instructions = JSON.stringify(convertToRaw(contentState));
+                            console.log(JSON.stringify(values.meal.title, null, 2));
+                            console.log(newValues);
+                            await axios.post(`${process.env.REACT_APP_HOST}/api/menu`, newValues).then(res => {
+                                if(res.status != 200) return setStatus(
+                                    <Alert color="danger">
+                                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                                    </Alert>
+                                );
+                                console.log(res.data);
+                                setMeal(res.data);
+                                setStatus(
+                                    <Alert color="success">
+                                        Meal successfully created!
+                                    </Alert>
+                                );
+                            })
+                            setSubmitting(false);
                         };
-                        newValues.ingredients = [];
-                        if(meal.ingredients) {
-                            meal.ingredients.map((m, ind) => {
-                                if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
-                            });
-                        }
-                        const contentState = editorState.getCurrentContent();
-                        newValues.instructions = JSON.stringify(convertToRaw(contentState));
-                        console.log(JSON.stringify(values.meal.title, null, 2));
-                        console.log(newValues);
-                        axios.post(`${process.env.REACT_APP_HOST}/api/menu`, newValues).then(res => {
-                            if(res.status != 200) return setStatus(
-                                <Alert color="danger">
-                                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                                </Alert>
-                            );
-                            console.log(res.data);
-                            setMeal(res.data);
-                            setStatus(
-                                <Alert color="success">
-                                    Meal successfully created!
-                                </Alert>
-                            );
-                        })
-                        setSubmitting(false);
+                        asyncSubmit();
                     }}
                 >
                     {({

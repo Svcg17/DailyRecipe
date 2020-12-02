@@ -83,39 +83,60 @@ const EditMeal = ({ history }) => {
                     key={meal._id}
                     initialValues={{meal}}
                     onSubmit={(values, { setSubmitting }) => {
-                        alert(JSON.stringify(values.meal, null, 2));
-                        let newValues = {
-                            title: values.meal.title, 
-                            // ingredients: values.meal.ingredients, 
-                            // instructions: values.meal.instructions, 
-                            duration: values.meal.duration, 
-                            diet: values.meal.diet, 
-                            servings: values.meal.servings, 
-                            calPerServing: values.meal.calPerServing, 
-                            isFeatured: values.meal.isFeatured, 
-                            season: values.meal.season, 
-                            cuisine: values.meal.cuisine, 
-                            nutrition: values.meal.nutrition, 
-                            allergens: values.meal.allergens
+                        const asyncSubmit = async () => {
+                            alert(JSON.stringify(values.meal, null, 2));
+                            let newValues = {
+                                title: values.meal.title, 
+                                // ingredients: values.meal.ingredients, 
+                                // instructions: values.meal.instructions, 
+                                duration: values.meal.duration, 
+                                diet: values.meal.diet, 
+                                servings: values.meal.servings, 
+                                calPerServing: values.meal.calPerServing, 
+                                isFeatured: values.meal.isFeatured, 
+                                season: values.meal.season, 
+                                cuisine: values.meal.cuisine, 
+                                nutrition: values.meal.nutrition, 
+                                allergens: values.meal.allergens
+                            };
+                            newValues.ingredients = [];
+                            if(meal.ingredients) {
+                                meal.ingredients.map((m, ind) => {
+                                    if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
+                                });
+                            }
+                            for(let i=0;i<newValues.ingredients.length;i++){
+                                if (newValues.ingredients[i].image) {
+                                    let fd = new FormData();
+                                    fd.append('file', newValues.ingredients[i].image);
+                                    console.log('fd', fd.get('file'));
+                                    const config = {
+                                        headers: {
+                                            'content-type': 'multipart/form-data'
+                                        }
+                                    }
+                                    if (typeof fd.get('file') != 'string') {
+                                        await axios.post(`${process.env.REACT_APP_HOST}/upload`, fd, config).then(res => {
+                                            console.log(res.data);
+                                            newValues.ingredients[i].image = res.data;
+                                        });
+                                    }
+                                }
+                            }
+                            const contentState = editorState.getCurrentContent();
+                            newValues.instructions = JSON.stringify(convertToRaw(contentState));
+                            console.log(JSON.stringify(newValues, null, 2));
+                            axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
+                                if(res.status != 200) return setStatus(
+                                    <Alert color="danger">
+                                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                                    </Alert>
+                                );
+                                history.push('/admin/meals');
+                            })
+                            setSubmitting(false);
                         };
-                        newValues.ingredients = [];
-                        if(meal.ingredients) {
-                            meal.ingredients.map((m, ind) => {
-                                if(!deleteAtIndex.includes(ind)) newValues.ingredients.push(m);
-                            });
-                        }
-                        const contentState = editorState.getCurrentContent();
-                        newValues.instructions = JSON.stringify(convertToRaw(contentState));
-                        console.log(JSON.stringify(newValues, null, 2));
-                        axios.put(`${process.env.REACT_APP_HOST}/api/menu/${id}`, newValues).then(res => {
-                            if(res.status != 200) return setStatus(
-                                <Alert color="danger">
-                                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                                </Alert>
-                            );
-                            history.push('/admin/meals');
-                        })
-                        setSubmitting(false);
+                        asyncSubmit();
                     }}
                 >
                     {({

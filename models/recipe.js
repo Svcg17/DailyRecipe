@@ -6,7 +6,7 @@ const RecipeSchema = new Schema(
     title: String,
     ingredients: [{
       name: String,
-      image: { type: String, required: false },
+      image: { type: String },
       inBox: { type: Boolean, default: true },
     }],
     instructions: Schema.Types.Mixed,
