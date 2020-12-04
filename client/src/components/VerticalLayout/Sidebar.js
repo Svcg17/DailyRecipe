@@ -200,7 +200,7 @@ const SidebarContent = props => {
           </ul>
         </li>
 
-        <li>
+        {/* <li>
           <Link to="/admin/#" className="waves-effect">
             <i className="ti-receipt"></i>
             <span className="badge badge-pill badge-success float-right">
@@ -409,7 +409,7 @@ const SidebarContent = props => {
               </ul>
             </li>
           </ul>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

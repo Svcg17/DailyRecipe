@@ -5,10 +5,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
-import Stripe from 'stripe';
-import fetch from 'node-fetch';
 import router from './routes';
 
+const __dirname = path.resolve();
 dotenv.config();
 
 const database = process.env.DB;
@@ -37,16 +36,16 @@ app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(express.static('public'));
 
 // Stripe setup
-const stripe = new Stripe(stripePrivKey);
+// const stripe = new Stripe(stripePrivKey);
 
 // Create Stripe's payment intent
-app.post("/api/create-payment-intent", async (req, res) => {
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.floor(req.body.totalPrice * 100),
-    currency: 'usd' ,
-  });
-  res.json({clientSecret: paymentIntent.client_secret});
-});
+// app.post("/api/create-payment-intent", async (req, res) => {
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: Math.floor(req.body.totalPrice * 100),
+//     currency: 'usd' ,
+//   });
+//   res.json({clientSecret: paymentIntent.client_secret});
+// });
 
 /* const allowedOrigins = ['http://localhost:3000']
 app.use(cors({

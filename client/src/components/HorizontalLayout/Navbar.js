@@ -59,571 +59,197 @@ class Navbar extends Component {
               >
                 <div id="navigation">
                   <ul className="navbar-nav">
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/admin/dashboard">
-                        <i className="ti-home mr-2"></i>Dashboard
-                      </Link>
-                    </li>
+                  <li className="menu-title">Main</li>
 
-                    <li className="nav-item dropdown mega-dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle arrow-none"
-                        to="/admin/#"
-                        onClick={e => {
-                          e.preventDefault();
-                          this.setState({ uiState: !this.state.uiState });
-                        }}
-                      >
-                        <i className="ti-package mr-2"></i>UI Elements
-                      </Link>
+{/* <li>
+  <Link to="/admin" className="waves-effect">
+    <i className="ti-home"></i>
+    <span className="badge badge-pill badge-primary float-right">
+      2
+    </span>
+    <span>Dashboard</span>
+  </Link>
+</li> */}
 
-                      <div
-                        className={classname(
-                          "dropdown-menu mega-dropdown-menu dropdown-menu-left dropdown-mega-menu-xl",
-                          { show: this.state.uiState }
-                        )}
-                      >
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <div>
-                              <Link to="ui-alerts" className="dropdown-item">
-                                Alerts
-                              </Link>
-                              <Link to="ui-buttons" className="dropdown-item">
-                                Buttons
-                              </Link>
-                              <Link to="ui-cards" className="dropdown-item">
-                                Cards
-                              </Link>
-                              <Link to="ui-carousel" className="dropdown-item">
-                                Carousel
-                              </Link>
-                              <Link to="ui-dropdowns" className="dropdown-item">
-                                Dropdowns
-                              </Link>
-                              <Link to="ui-grid" className="dropdown-item">
-                                Grid
-                              </Link>
-                              <Link to="ui-images" className="dropdown-item">
-                                Images
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="col-lg-4">
-                            <div>
-                              <Link to="ui-lightbox" className="dropdown-item">
-                                Lightbox
-                              </Link>
-                              <Link to="ui-modals" className="dropdown-item">
-                                Modals
-                              </Link>
-                              <Link
-                                to="ui-rangeslider"
-                                className="dropdown-item"
-                              >
-                                Range Slider
-                              </Link>
-                              <Link
-                                to="ui-session-timeout"
-                                className="dropdown-item"
-                              >
-                                Session Timeout
-                              </Link>
-                              <Link
-                                to="ui-progressbars"
-                                className="dropdown-item"
-                              >
-                                Progress Bars
-                              </Link>
-                              <Link
-                                to="ui-sweet-alert"
-                                className="dropdown-item"
-                              >
-                                Sweet-Alert
-                              </Link>
-                              <Link
-                                to="ui-tabs-accordions"
-                                className="dropdown-item"
-                              >
-                                Tabs & Accordions
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="col-lg-4">
-                            <div>
-                              <Link
-                                to="ui-typography"
-                                className="dropdown-item"
-                              >
-                                Typography
-                              </Link>
-                              <Link to="ui-video" className="dropdown-item">
-                                Video
-                              </Link>
-                              <Link to="ui-general" className="dropdown-item">
-                                General
-                              </Link>
-                              <Link to="ui-colors" className="dropdown-item">
-                                Colors
-                              </Link>
-                              <Link to="ui-rating" className="dropdown-item">
-                                Rating
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+<li>
+  <Link to="/admin/weekly-selection" className=" waves-effect">
+    <i className="ti-calendar"></i>
+    <span>Weekly Selection</span>
+  </Link>
+</li>
 
-                    <li className="nav-item dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle arrow-none"
-                        to="/admin/#"
-                        onClick={e => {
-                          e.preventDefault();
-                          this.setState({ CompoState: !this.state.CompoState });
-                        }}
-                      >
-                        <i className="ti-harddrives mr-2"></i>Components
-                      </Link>
+<li>
+  <Link to="/admin/orders" className=" waves-effect">
+    <i className="mdi mdi-note-outline"></i>
+    <span>Orders</span>
+  </Link>
+</li>
 
-                      <div
-                        className={classname("dropdown-menu", {
-                          show: this.state.CompoState
-                        })}
-                      >
-                        <div className="dropdown">
-                          <Link
-                            to="/admin/#"
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                EmailState: !this.state.EmailState
-                              });
-                            }}
-                          >
-                            Email <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.EmailState
-                            })}
-                            aria-labelledby="topnav-email"
-                          >
-                            <Link to="email-inbox" className="dropdown-item">
-                              Inbox
-                            </Link>
-                            <Link to="email-read" className="dropdown-item">
-                              Email Read
-                            </Link>
-                            <Link to="email-compose" className="dropdown-item">
-                              Email Compose
-                            </Link>
-                          </div>
-                        </div>
+{/* <li>
+  <Link to="/admin/#" className="has-arrow waves-effect">
+    <i className="ti-email"></i>
+    <span>Email</span>
+  </Link>
+  <ul className="sub-menu" aria-expanded="false">
+    <li>
+      <Link to="/admin/email-inbox">Inbox</Link>
+    </li>
+    <li>
+      <Link to="/admin/email-read">Email Read</Link>
+    </li>
+    <li>
+      <Link to="/admin/email-compose">Email Compose</Link>
+    </li>
+  </ul>
+</li> */}
 
-                        <Link to="calendar" className="dropdown-item">
-                          Calendar
-                        </Link>
+<li className="menu-title">Components</li>
+<li>
+  <Link to="/admin/#" className="has-arrow waves-effect">
+    <i className="mdi mdi-food-apple-outline"></i>
+    <span>Meals</span>
+  </Link>
+  <ul className="sub-menu" aria-expanded="false">
+    <li>
+      <Link to="/admin/meals">View Meals</Link>
+    </li>
+    <li>
+      <Link to="/admin/meals/create">Create a New Meal</Link>
+    </li>
+    {/* <li>
+      <Link to="ui-cards">Cards</Link>
+    </li>
+    <li>
+      <Link to="ui-carousel">Carousel</Link>
+    </li>
+    <li>
+      <Link to="ui-dropdowns">Dropdowns</Link>
+    </li>
+    <li>
+      <Link to="ui-grid">Grid</Link>
+    </li>
+    <li>
+      <Link to="ui-images">Images</Link>
+    </li>
+    <li>
+      <Link to="ui-lightbox">Lightbox</Link>
+    </li>
+    <li>
+      <Link to="ui-modals">Modals</Link>
+    </li>
+    <li>
+      <Link to="ui-rangeslider">Range Slider</Link>
+    </li>
+    <li>
+      <Link to="ui-session-timeout">Session Timeout</Link>
+    </li>
+    <li>
+      <Link to="ui-progressbars">Progress Bars</Link>
+    </li>
+    <li>
+      <Link to="ui-sweet-alert">Sweet-Alert</Link>
+    </li>
+    <li>
+      <Link to="ui-tabs-accordions">Tabs &amp; Accordions</Link>
+    </li>
+    <li>
+      <Link to="ui-typography">Typography</Link>
+    </li>
+    <li>
+      <Link to="ui-video">Video</Link>
+    </li>
+    <li>
+      <Link to="ui-general">General</Link>
+    </li>
+    <li>
+      <Link to="ui-colors">Colors</Link>
+    </li>
+    <li>
+      <Link to="ui-rating">Rating</Link>
+    </li> */}
+  </ul>
+</li>
 
-                        <div className="dropdown">
-                          <Link
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            to="/admin/#"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                FormState: !this.state.FormState
-                              });
-                            }}
-                          >
-                            Forms <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.FormState
-                            })}
-                          >
-                            <Link to="form-elements" className="dropdown-item">
-                              Form Elements
-                            </Link>
-                            <Link
-                              to="form-validation"
-                              className="dropdown-item"
-                            >
-                              Form Validation
-                            </Link>
-                            <Link to="form-advanced" className="dropdown-item">
-                              Form Advanced
-                            </Link>
-                            <Link to="form-editors" className="dropdown-item">
-                              Form Editors
-                            </Link>
-                            <Link to="form-uploads" className="dropdown-item">
-                              Form File Upload
-                            </Link>
-                            <Link to="form-xeditable" className="dropdown-item">
-                              Form Xeditable
-                            </Link>
-                            <Link to="form-repeater" className="dropdown-item">
-                              Form Repeater
-                            </Link>
-                            <Link to="form-wizard" className="dropdown-item">
-                              Form Wizard
-                            </Link>
-                            <Link to="form-mask" className="dropdown-item">
-                              Form Mask
-                            </Link>
-                          </div>
-                        </div>
+<li>
+  <Link to="/admin/#" className="has-arrow waves-effect">
+    <i className="mdi mdi-book-open-page-variant"></i>
+    <span>Plans</span>
+  </Link>
+  <ul className="sub-menu" aria-expanded="false">
+    <li>
+      <Link to="/admin/diet">Diet</Link>
+    </li>
+    <li>
+      <Link to="/admin/plans">Plans</Link>
+    </li>
+    {/* <li>
+      <Link to="form-elements">Form Elements</Link>
+    </li>
+    <li>
+      <Link to="form-validation">Form Validation</Link>
+    </li>
+    <li>
+      <Link to="form-advanced">Form Advanced</Link>
+    </li>
+    <li>
+      <Link to="form-editors">Form Editors</Link>
+    </li>
+    <li>
+      <Link to="form-uploads">Form File Upload</Link>
+    </li>
+    <li>
+      <Link to="form-xeditable">Form Xeditable</Link>
+    </li>
+    <li>
+      <Link to="form-repeater">Form Repeater</Link>
+    </li>
+    <li>
+      <Link to="form-wizard">Form Wizard</Link>
+    </li>
+    <li>
+      <Link to="form-mask">Form Mask</Link>
+    </li> */}
+  </ul>
+</li>
 
-                        <div className="dropdown">
-                          <Link
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            to="/admin/#"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                ChartState: !this.state.ChartState
-                              });
-                            }}
-                          >
-                            Charts <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.ChartState
-                            })}
-                          >
-                            <Link
-                              className="dropdown-item"
-                              to="charts-chartist"
-                            >
-                              Chartist Chart
-                            </Link>
-                            <Link className="dropdown-item" to="e-charts">
-                              E Chart
-                            </Link>
-                            <Link className="dropdown-item" to="charts-chartjs">
-                              Chartjs Chart
-                            </Link>
-                            <Link className="dropdown-item" to="apex-chart">
-                              Apex Chart
-                            </Link>
-                            <Link
-                              className="dropdown-item"
-                              to="charts-sparkline"
-                            >
-                              Sparkline Chart
-                            </Link>
-                          </div>
-                        </div>
+<li>
+  <Link to="/admin/#" className="has-arrow waves-effect">
+    <i className="mdi mdi-human"></i>
+    <span>Users</span>
+  </Link>
+  <ul className="sub-menu" aria-expanded="false">
+    <li>
+      <Link to="/admin/users">View Users</Link>
+    </li>
+    <li>
+      <Link to="/admin/reviews">Users' Reviews</Link>
+    </li>
+    <li>
+      <Link to="/admin/tips">Users' Tips</Link>
+    </li>
+    <li>
+      <Link to="/admin/comments">Users' Comments</Link>
+    </li>
+  </ul>
+</li>
 
-                        <div className="dropdown">
-                          <Link
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            to="/admin/#"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                TableState: !this.state.TableState
-                              });
-                            }}
-                          >
-                            Tables <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.TableState
-                            })}
-                          >
-                            <Link to="tables-basic" className="dropdown-item">
-                              Basic Tables
-                            </Link>
-                            <Link
-                              to="tables-datatable"
-                              className="dropdown-item"
-                            >
-                              Data Table
-                            </Link>
-                            <Link
-                              to="tables-responsive"
-                              className="dropdown-item"
-                            >
-                              Responsive Table
-                            </Link>
-                            <Link
-                              to="tables-editable"
-                              className="dropdown-item"
-                            >
-                              Editable Table
-                            </Link>
-                          </div>
-                        </div>
-
-                        <div className="dropdown">
-                          <Link
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            to="/admin/#"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                IconState: !this.state.IconState
-                              });
-                            }}
-                          >
-                            Icons <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.IconState
-                            })}
-                          >
-                            <Link to="icons-material" className="dropdown-item">
-                              Material Design
-                            </Link>
-                            <Link
-                              to="icons-fontawesome"
-                              className="dropdown-item"
-                            >
-                              Font Awesome
-                            </Link>
-                            <Link to="icons-ion" className="dropdown-item">
-                              Ion Icons
-                            </Link>
-                            <Link to="icons-themify" className="dropdown-item">
-                              Themify Icons
-                            </Link>
-                            <Link
-                              to="icons-dripicons"
-                              className="dropdown-item"
-                            >
-                              Dripicons
-                            </Link>
-                            <Link to="icons-typicons" className="dropdown-item">
-                              Typicons Icons
-                            </Link>
-                          </div>
-                        </div>
-
-                        <div className="dropdown">
-                          <Link
-                            className="dropdown-item dropdown-toggle arrow-none"
-                            to="/admin/#"
-                            onClick={e => {
-                              e.preventDefault();
-                              this.setState({
-                                MapsState: !this.state.MapsState
-                              });
-                            }}
-                          >
-                            Maps <div className="arrow-down"></div>
-                          </Link>
-                          <div
-                            className={classname("dropdown-menu", {
-                              show: this.state.MapsState
-                            })}
-                          >
-                            <Link to="maps-google" className="dropdown-item">
-                              {" "}
-                              Google Map
-                            </Link>
-                            <Link to="maps-vector" className="dropdown-item">
-                              {" "}
-                              Vector Map
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li className="nav-item dropdown mega-dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle arrow-none"
-                        to="/admin/#"
-                        onClick={e => {
-                          e.preventDefault();
-                          this.setState({
-                            AuthState: !this.state.AuthState
-                          });
-                        }}
-                      >
-                        <i className="ti-archive mr-2"></i> Authentication
-                      </Link>
-
-                      <div
-                        className={classname("dropdown-menu", {
-                          show: this.state.AuthState
-                        })}
-                      >
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div>
-                              <Link
-                                to="pages-login-2"
-                                className="dropdown-item"
-                              >
-                                Login 2
-                              </Link>
-                              <Link
-                                to="pages-register-2"
-                                className="dropdown-item"
-                              >
-                                Register 2
-                              </Link>
-                              <Link
-                                to="pages-recoverpw-2"
-                                className="dropdown-item"
-                              >
-                                Recover Password 2
-                              </Link>
-                              <Link
-                                to="pages-lock-screen-2"
-                                className="dropdown-item"
-                              >
-                                Lock Screen 2
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li className="nav-item dropdown mega-dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle arrow-none"
-                        to="/admin/#"
-                        onClick={e => {
-                          e.preventDefault();
-                          this.setState({
-                            ExtraState: !this.state.ExtraState
-                          });
-                        }}
-                      >
-                        <i className="ti-support mr-2"></i> Extra Pages
-                      </Link>
-
-                      <div
-                        className={classname(
-                          "dropdown-menu mega-dropdown-menu dropdown-mega-menu-lg",
-                          {
-                            show: this.state.ExtraState
-                          }
-                        )}
-                      >
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div>
-                              <Link
-                                to="pages-timeline"
-                                className="dropdown-item"
-                              >
-                                Timeline
-                              </Link>
-                              <Link
-                                to="pages-invoice"
-                                className="dropdown-item"
-                              >
-                                Invoice
-                              </Link>
-                              <Link
-                                to="pages-directory"
-                                className="dropdown-item"
-                              >
-                                Directory
-                              </Link>
-                              <Link to="pages-blank" className="dropdown-item">
-                                Blank Page
-                              </Link>
-                              <Link to="pages-404" className="dropdown-item">
-                                Error 404
-                              </Link>
-                              <Link to="pages-500" className="dropdown-item">
-                                Error 500
-                              </Link>
-                              <Link
-                                to="pages-pricing"
-                                className="dropdown-item"
-                              >
-                                Pricing
-                              </Link>
-                              <Link
-                                to="pages-gallery"
-                                className="dropdown-item"
-                              >
-                                Gallery
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="col-lg-6">
-                            <div>
-                              <Link
-                                to="pages-maintenance"
-                                className="dropdown-item"
-                              >
-                                Maintenance
-                              </Link>
-                              <Link
-                                to="pages-comingsoon"
-                                className="dropdown-item"
-                              >
-                                Coming Soon
-                              </Link>
-                              <Link to="pages-faq" className="dropdown-item">
-                                FAQs
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li className="nav-item dropdown mega-dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle arrow-none"
-                        to="/admin/#"
-                        onClick={e => {
-                          e.preventDefault();
-                          this.setState({
-                            EtState: !this.state.EtState
-                          });
-                        }}
-                      >
-                        <i className="ti-bookmark-alt mr-2"></i> Email Templates
-                      </Link>
-
-                      <div
-                        className={classname("dropdown-menu", {
-                          show: this.state.EtState
-                        })}
-                      >
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div>
-                              <Link
-                                to="email-template-basic"
-                                className="dropdown-item"
-                              >
-                                Basic Action Email
-                              </Link>
-                              <Link
-                                to="email-template-Alert"
-                                className="dropdown-item"
-                              >
-                                Alert Email
-                              </Link>
-                              <Link
-                                to="email-template-Billing"
-                                className="dropdown-item"
-                              >
-                                Billing Email
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+<li>
+  <Link to="/admin/#" className="has-arrow waves-effect">
+    <i className="mdi mdi-file-document-outline" />
+    <span>Publish</span>
+  </Link>
+  <ul className="sub-menu" aria-expanded="false">
+    <li>
+      <Link to="/admin/articles">Articles</Link>
+    </li>
+    <li>
+      <Link to="/admin/articles/create-article">Create Article</Link>
+    </li>
+    <li>
+      <Link to="/admin/policy-and-terms">Update Policy and Terms of Service</Link>
+    </li>
+  </ul>
+</li>
                   </ul>
                 </div>
               </Collapse>
