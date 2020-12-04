@@ -99,8 +99,8 @@ hooks:
   #     runas:
 # During the AfterInstall deployment lifecycle event, run the commands 
 #   in the script specified in "location".
-  BeforeInstall:
-    - location: deploy.sh
+  # BeforeInstall:
+  #   - location: deploy.sh
 # During the ApplicationStart deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   # ApplicationStart:
