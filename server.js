@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
 import Stripe from 'stripe';
+import fetch from 'node-fetch';
 import router from './routes';
 
 dotenv.config();

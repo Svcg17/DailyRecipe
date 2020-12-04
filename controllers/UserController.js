@@ -163,3 +163,23 @@ export function deleteUser(req, res) {
     res.status(200).send({ message: `successfully deleted user ${req.params.id}` });
   });
 }
+
+// export function paystack(req, res) {
+//   fetch('https://api.paystack.co/transaction/initialize', {
+//     method: 'POST',
+//     headers: {
+//         'Authorization': `Bearer ${process.env.SECRET_KEY}`,
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       "amount": 50000,
+//       "email": "bear@gmail.com"
+//     })
+//   }).then(paystackStatus => {
+//     // if (!paystackStatus.ok) { // res.status >= 200 && res.status < 300
+//     //   return res.status(500).send({ error: paystackStatus.message });
+//     // }
+//     console.log(paystackStatus);
+//     return res.status(201).send(paystackStatus);
+//   });
+// }

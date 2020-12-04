@@ -192,7 +192,7 @@ const SidebarContent = props => {
               <Link to="/admin/articles">Articles</Link>
             </li>
             <li>
-              <Link to="/admin/create-article">Create Article</Link>
+              <Link to="/admin/articles/create-article">Create Article</Link>
             </li>
             <li>
               <Link to="/admin/policy-and-terms">Update Policy and Terms of Service</Link>

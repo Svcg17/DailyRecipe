@@ -5,12 +5,11 @@ const ArticleSchema = new Schema(
     {
         title: String,
         description: String,
-        minutesToRead: Number,
+        minuteRead: Number,
         category: String,
         subcategory: String,
         hashtags: String,
-        images: [String],
-        flagged: Number,
+        flagged: { type: Number, default: 0 },
         author: { type: Schema.Types.ObjectId, ref: 'Admin' }
     },
     {

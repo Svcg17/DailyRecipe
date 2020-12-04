@@ -34,12 +34,14 @@ import Plans from '../components/Admin/Plans/Plans';
 
 // Users
 import User from '../components/Admin/User';
-import Article from '../components/Admin/Article';
 import Review from '../components/Admin/Review';
 import Tip from '../components/Admin/Tip';
 import Comment from '../components/Admin/Comment';
 
 // Publish
+import Article from '../components/Admin/Article';
+import CreateArticle from '../components/Admin/CreateArticle';
+import EditArticle from '../components/Admin/EditArticle';
 import Policy from '../components/Admin/Policy';
 
 // Orders
@@ -147,6 +149,8 @@ const authProtectedRoutes = [
   { path: "/admin/diet", component: CreateDiet },
   { path: "/admin/plans", component: Plans },
   { path: "/admin/users", component: User },
+  { path: "/admin/articles/edit/:id", component: EditArticle },
+  { path: "/admin/articles/create-article", component: CreateArticle },
   { path: "/admin/articles", component: Article },
   { path: "/admin/reviews", component: Review },
   { path: "/admin/tips", component: Tip },

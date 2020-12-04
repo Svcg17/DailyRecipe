@@ -33,7 +33,6 @@ const Order = ({ history }) => {
                             }
                         });
                     }
-                    console.log('use effect', arr);
                     await setOrder(arr);
                 }
             });

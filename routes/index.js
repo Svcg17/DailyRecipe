@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import fetch from 'node-fetch';
 import upload from './middleware/multer';
 import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe, uploadImages } from '../controllers/MenuController';
 import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, getRecipesFromPlan, storeMenu } from '../controllers/PricingController';
@@ -31,6 +32,13 @@ import {
   getOrders, 
   postOrder
 } from '../controllers/OrderController';
+import {
+  putArticle,
+  deleteArticle,
+  getArticle,
+  postArticle,
+  getArticles
+} from '../controllers/ArticleController';
 
 const router = Router();
 
@@ -81,6 +89,13 @@ router.put('/api/weekly', updateWeeklyCollection);
 router.put('/api/policy', updatePolicy);
 router.get('/api/policy', getPolicy);
 
+// article routes
+router.put('/api/articles/:id', putArticle);
+router.delete('/api/articles/:id', deleteArticle);
+router.get('/api/articles/:id', getArticle);
+router.post('/api/articles', postArticle);
+router.get('/api/articles', getArticles);
+
 // order routes
 // router.put();
 // router.getone
@@ -104,5 +119,18 @@ router.get('/users/recipes', getSelectedRecipes);
 router.put('/users/recipes', selectRecipe);
 router.post('/users/delivery', setDeliveryInfo);
 router.post('/users/plan', choosePlan);
+router.post('/users/pay', async (req, res) => {
+  const d = await fetch('https://api.paystack.co/transaction/initialize', {
+    method: 'POST',
+    headers: {
+        'Authorization': `Bearer ${process.env.SECRET_KEY}`,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(req.body)
+  });
+  const data = await d.json();
+  if (data && data.status) return res.status(201).send(data);
+  return res.status(500).send({ error: data.message });
+});
 
 export default router;
