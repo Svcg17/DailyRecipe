@@ -137,6 +137,14 @@ export function getUsers(req, res) {
   });
 }
 
+// get a user (admin side)
+export function getUser(req, res) {
+  User.findById(req.params.id, (err, user) => {
+    if (err) return res.status(400).send({ error: err });
+    res.status(200).send(user);
+  });
+}
+
 // put user (admin side)
 export async function putUser(req, res) {
   try {

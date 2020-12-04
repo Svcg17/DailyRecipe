@@ -17,7 +17,7 @@ const UserSchema = new Schema(
       minlength: 8,
     },
     address: String,
-    planInstance: { type: Schema.Types.ObjectId, ref: 'PlanInstance' },
+    plan: { type: Schema.Types.ObjectId, ref: 'Plan', required: false },
     address: String,
     phone: {
       type: String,

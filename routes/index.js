@@ -13,6 +13,7 @@ import {
   choosePlan, getPlanInstance, setDeliveryInfo,
   getSelectedRecipes, selectRecipe,
   getUsers,
+  getUser,
   putUser,
   deleteUser
 } from '../controllers/UserController';
@@ -26,6 +27,10 @@ import {
   updatePolicy,
   getPolicy
 } from '../controllers/AdminController';
+import {
+  getOrders, 
+  postOrder
+} from '../controllers/OrderController';
 
 const router = Router();
 
@@ -76,10 +81,18 @@ router.put('/api/weekly', updateWeeklyCollection);
 router.put('/api/policy', updatePolicy);
 router.get('/api/policy', getPolicy);
 
+// order routes
+// router.put();
+// router.getone
+// router.delete();
+router.post('/api/orders', postOrder);
+router.get('/api/orders', getOrders);
+
 // api user routes
 // router.use('/api/users', verifyToken);
 router.put('/api/users/:id', putUser);
 router.delete('/api/users/:id', deleteUser);
+router.get('/api/users/:id', getUser);
 router.get('/api/users', getUsers);
 
 // user routes
