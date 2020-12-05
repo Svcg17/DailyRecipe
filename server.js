@@ -67,6 +67,8 @@ app.use('/api/plans', router);
 app.use('/api/users', router);
 app.use('/api/diet', router);
 
-app.listen(port, () => {
+app.listen(port, '172.31.23.51', () => {
   console.log(`Running on port ${port}`);
 });
+
+export default server;
