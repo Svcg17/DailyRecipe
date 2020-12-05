@@ -6,6 +6,7 @@
   "description": "An ingredient-to-recipe meal kit service website",
   "private": true,
   "dependencies": {
+    "@babel/cli": "^7.12.8",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -24,7 +25,8 @@
     "url": "https://github.com/Svcg17/DailyRecipe"
   },
   "scripts": {
-    "start": "nodemon --experimental-specifier-resolution=node --exec babel-node --presets @babel/preset-env ./server.js"
+    "start": "nodemon --experimental-specifier-resolution=node --exec babel-node --presets @babel/preset-env ./server.js",
+    "build": "babel server.js routes/ controllers/ models/ -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -34,7 +36,8 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-env": "^7.12.7",
+    "babel-preset-env": "^1.7.0",
     "eslint-config-airbnb": "^18.2.0",
     "nodemon": "^2.0.4"
   },

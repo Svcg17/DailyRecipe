@@ -5,7 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
-import router from './routes';
+import router from './routes/index.js';
 
 const __dirname = path.resolve();
 dotenv.config();
