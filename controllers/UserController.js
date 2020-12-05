@@ -1,5 +1,5 @@
 import User from '../models/user';
-import PlanInstance from '../models/planInstance';
+import PlanInstance from '../models/planInstance.js';
 
 /**
  * Middleware function for GET /api/users/profile

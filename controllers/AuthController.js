@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from '../models/user';
-import Admin from '../models/admin';
+import User from '../models/user.js';
+import Admin from '../models/admin.js';
 
 /**
  * Creates a JSON web token with the given data and a cookie:

@@ -1,5 +1,5 @@
-import Recipe from '../models/recipe';
-import Image from '../models/image';
+import Recipe from '../models/recipe.js';
+import Image from '../models/image.js';
 
 /**
  * Middleware function for POST /api/menu

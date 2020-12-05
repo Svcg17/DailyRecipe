@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import fetch from 'node-fetch';
-import upload from './middleware/multer/index.js';
-import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe, uploadImages } from '../controllers/MenuController';
-import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, getRecipesFromPlan, storeMenu } from '../controllers/PricingController';
-import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController';
+import upload from './middleware/multer.js';
+import { postRecipe, getAllRecipes, getRecipe, putRecipe, deleteRecipe, uploadImages } from '../controllers/MenuController.js';
+import { postPlan, getPlans, putPlan, getRecipesFromDietAndServings, deletePlan, getPlanMenu, getRecipesFromPlan, storeMenu } from '../controllers/PricingController.js';
+import { postDiet, getAllDiet, putDiet, deleteDiet } from '../controllers/DietController.js';
 import {
   registerUser, login,
   logout, verifyToken, registerAdmin, adminLogin, findAdmin,
   putAdmin
-} from '../controllers/AuthController';
+} from '../controllers/AuthController.js';
 import {
   getProfile, getUserPlan,
   choosePlan, getPlanInstance, setDeliveryInfo,
@@ -17,28 +17,28 @@ import {
   getUser,
   putUser,
   deleteUser
-} from '../controllers/UserController';
+} from '../controllers/UserController.js';
 import { 
   postWeeklySelection, 
   getAllWeeklySelections,
   getweeklySelectionByDate,
   updateWeeklyCollection
-} from '../controllers/WeeklySelectionController';
+} from '../controllers/WeeklySelectionController.js';
 import {
   updatePolicy,
   getPolicy
-} from '../controllers/AdminController';
+} from '../controllers/AdminController.js';
 import {
   getOrders, 
   postOrder
-} from '../controllers/OrderController';
+} from '../controllers/OrderController.js';
 import {
   putArticle,
   deleteArticle,
   getArticle,
   postArticle,
   getArticles
-} from '../controllers/ArticleController';
+} from '../controllers/ArticleController.js';
 
 const router = Router();
 

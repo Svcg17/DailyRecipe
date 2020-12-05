@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import Admin from '../models/admin';
-import Policy from '../models/policy';
+import Admin from '../models/admin.js';
+import Policy from '../models/policy.js';
 
 export function getPolicy(req, res) {
     Policy.find({}, (err, policy) => {

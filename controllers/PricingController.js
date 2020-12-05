@@ -1,5 +1,5 @@
-import Plan from '../models/plan';
-import Recipes from '../models/recipe';
+import Plan from '../models/plan.js';
+import Recipes from '../models/recipe.js';
 
 /**
  * Middleware function for POST /api/plans

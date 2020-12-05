@@ -1,4 +1,4 @@
-import Diet from '../models/diet';
+import Diet from '../models/diet.js';
 
 /**
  * Middleware function for POST /api/diet

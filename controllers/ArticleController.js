@@ -1,4 +1,4 @@
-import Article from '../models/article';
+import Article from '../models/article.js';
 
 export async function putArticle(req, res) {
     const updatedArticle = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });

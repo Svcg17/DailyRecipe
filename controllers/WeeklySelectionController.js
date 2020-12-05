@@ -1,4 +1,4 @@
-import WeeklySelection from '../models/weeklySelection';
+import WeeklySelection from '../models/weeklySelection.js';
 
 /**
  * Middleware function for POST /api/menu
