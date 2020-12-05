@@ -5,7 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
-import router from './routes';
+import router from './routes/index.js';
 
 const __dirname = path.resolve();
 dotenv.config();
@@ -67,6 +67,8 @@ app.use('/api/plans', router);
 app.use('/api/users', router);
 app.use('/api/diet', router);
 
-app.listen(port, () => {
+app.listen(port, '172.31.23.51', () => {
   console.log(`Running on port ${port}`);
 });
+
+export default server;
